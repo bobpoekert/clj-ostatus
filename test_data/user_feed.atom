@@ -1,0 +1,370 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:poco="http://portablecontacts.net/spec/1.0" xmlns:media="http://purl.org/syndication/atommedia" xmlns:ostatus="http://ostatus.org/schema/1.0" xmlns:mastodon="http://mastodon.social/schema/1.0">
+  <id>https://icosahedron.website/users/parataxis.atom</id>
+  <title>bob ✅</title>
+  <subtitle>best mesothelioma lawyer dallas truck accident lawyer truck accident lawyer houston loisville car accident lawyer san diego water damage. @bobpoekert on twitter</subtitle>
+  <updated>2017-04-04T19:07:33Z</updated>
+  <logo>https://icosahedron.website/system/accounts/avatars/000/003/206/original/e7d13c2dd2a8b28e.jpeg?1491246678</logo>
+  <author>
+    <id>https://icosahedron.website/users/parataxis</id>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    <uri>https://icosahedron.website/users/parataxis</uri>
+    <name>parataxis</name>
+    <email>parataxis@icosahedron.website</email>
+    <summary>best mesothelioma lawyer dallas truck accident lawyer truck accident lawyer houston loisville car accident lawyer san diego water damage. @bobpoekert on twitter</summary>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/@parataxis"/>
+    <link rel="avatar" type="image/jpeg" media:width="120" media:height="120" href="https://icosahedron.website/system/accounts/avatars/000/003/206/original/e7d13c2dd2a8b28e.jpeg?1491246678"/>
+    <link rel="header" type="image/jpeg" media:width="700" media:height="335" href="https://icosahedron.website/system/accounts/headers/000/003/206/original/bb4fefe827c66aa8.jpeg?1491246678"/>
+    <poco:preferredUsername>parataxis</poco:preferredUsername>
+    <poco:displayName>bob ✅</poco:displayName>
+    <poco:note>best mesothelioma lawyer dallas truck accident lawyer truck accident lawyer houston loisville car accident lawyer san diego water damage. @bobpoekert on twitter</poco:note>
+    <mastodon:scope>public</mastodon:scope>
+  </author>
+  <link rel="alternate" type="text/html" href="https://icosahedron.website/@parataxis"/>
+  <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis.atom"/>
+  <link rel="next" type="application/atom+xml" href="https://icosahedron.website/users/parataxis.atom?max_id=34470"/>
+  <link rel="hub" href="https://icosahedron.website/api/push"/>
+  <link rel="salmon" href="https://icosahedron.website/api/salmon/3206"/>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-23:objectId=955781:objectType=Status</id>
+    <published>2017-04-23T03:57:27Z</published>
+    <updated>2017-04-23T03:57:27Z</updated>
+    <title>parataxis shared a status by jk@mastodon.social</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/activity</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/share</activity:verb>
+    <activity:object>
+      <id>tag:mastodon.social,2017-04-23:objectId=3843818:objectType=Status</id>
+      <published>2017-04-23T00:12:12Z</published>
+      <updated>2017-04-23T00:12:12Z</updated>
+      <title>New status by jk@mastodon.social</title>
+      <author>
+        <id>https://mastodon.social/users/jk</id>
+        <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+        <uri>https://mastodon.social/users/jk</uri>
+        <name>jk</name>
+        <email>jk@mastodon.social</email>
+        <summary>i made that mastodon boop sound 
+&lt;a href="http://soundcloud.com/josefkenny" rel="nofollow noopener" target="_blank"&gt;&lt;span class="invisible"&gt;http://&lt;/span&gt;&lt;span class=""&gt;soundcloud.com/josefkenny&lt;/span&gt;&lt;span class="invisible"&gt;&lt;/span&gt;&lt;/a&gt; (he/him)</summary>
+        <link rel="alternate" type="text/html" href="https://mastodon.social/users/jk"/>
+        <link rel="avatar" type="image/gif" media:width="120" media:height="120" href="https://icosahedron.website/system/accounts/avatars/000/000/032/original/media.gif?1492595285"/>
+        <link rel="header" type="image/jpeg" media:width="700" media:height="335" href="https://icosahedron.website/system/accounts/headers/000/000/032/original/tex2.JPG?1492595290"/>
+        <poco:preferredUsername>jk</poco:preferredUsername>
+        <poco:displayName>josef</poco:displayName>
+        <poco:note>i made that mastodon boop sound 
+&lt;a href="http://soundcloud.com/josefkenny" rel="nofollow noopener"&gt;&lt;span class="invisible"&gt;http://&lt;/span&gt;&lt;span class=""&gt;soundcloud.com/josefkenny&lt;/span&gt;&lt;span class="invisible"&gt;&lt;/span&gt;&lt;/a&gt; (he/him)</poco:note>
+        <mastodon:scope>public</mastodon:scope>
+      </author>
+      <activity:object-type>http://activitystrea.ms/schema/1.0/note</activity:object-type>
+      <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+      <content type="html">&lt;p&gt;franz liszt had a small clavichord-type thing built into the drawer of his office desk, made by bosendorfer &lt;a href="https://mastodon.social/media/Y71gtajIREbE5t15eX8" rel="nofollow noopener"&gt;&lt;span class="invisible"&gt;https://&lt;/span&gt;&lt;span class="ellipsis"&gt;mastodon.social/media/Y71gtajI&lt;/span&gt;&lt;span class="invisible"&gt;REbE5t15eX8&lt;/span&gt;&lt;/a&gt; &lt;/p&gt;&lt;p&gt;it sounded like this: &lt;a href="https://www.youtube.com/watch?v=FqlXzvbpybA" rel="nofollow noopener"&gt;&lt;span class="invisible"&gt;https://www.&lt;/span&gt;&lt;span class="ellipsis"&gt;youtube.com/watch?v=FqlXzvbpyb&lt;/span&gt;&lt;span class="invisible"&gt;A&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;</content>
+      <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+      <link rel="enclosure" type="image/jpeg" length="597179" href="https://icosahedron.website/system/media_attachments/files/000/078/556/original/5aba0f7345f1890b.jpg"/>
+      <mastodon:scope>public</mastodon:scope>
+      <link rel="alternate" type="text/html" href="https://mastodon.social/users/jk/updates/2062845"/>
+    </activity:object>
+    <content type="html">&lt;p&gt;franz liszt had a small clavichord-type thing built into the drawer of his office desk, made by bosendorfer &lt;a href="https://mastodon.social/media/Y71gtajIREbE5t15eX8" rel="nofollow noopener"&gt;&lt;span class="invisible"&gt;https://&lt;/span&gt;&lt;span class="ellipsis"&gt;mastodon.social/media/Y71gtajI&lt;/span&gt;&lt;span class="invisible"&gt;REbE5t15eX8&lt;/span&gt;&lt;/a&gt; &lt;/p&gt;&lt;p&gt;it sounded like this: &lt;a href="https://www.youtube.com/watch?v=FqlXzvbpybA" rel="nofollow noopener"&gt;&lt;span class="invisible"&gt;https://www.&lt;/span&gt;&lt;span class="ellipsis"&gt;youtube.com/watch?v=FqlXzvbpyb&lt;/span&gt;&lt;span class="invisible"&gt;A&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/36036"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/36036.atom"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-22:objectId=943437:objectType=Status</id>
+    <published>2017-04-22T18:17:09Z</published>
+    <updated>2017-04-22T18:17:09Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://socially.constructed.space/users/KitRedgrave" class="u-url mention"&gt;@KitRedgrave&lt;/a&gt;&lt;/span&gt; surveys in general are very difficult to do well. the questions always have the author&amp;apos;s preconceptions baked into them&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://socially.constructed.space/users/KitRedgrave"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35746"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35746.atom"/>
+    <thr:in-reply-to ref="tag:socially.constructed.space,2017-04-22:objectId=450844:objectType=Status" href="https://socially.constructed.space/users/KitRedgrave/updates/10224"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-22:objectId=927947:objectType=Status</id>
+    <published>2017-04-22T04:33:31Z</published>
+    <updated>2017-04-22T04:33:31Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://socially.constructed.space/users/KitRedgrave" class="u-url mention"&gt;@KitRedgrave&lt;/a&gt;&lt;/span&gt; I dropped out and got a job for this reason&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://socially.constructed.space/users/KitRedgrave"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35519"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35519.atom"/>
+    <thr:in-reply-to ref="tag:socially.constructed.space,2017-04-22:objectId=445155:objectType=Status" href="https://socially.constructed.space/users/KitRedgrave/updates/10201"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-22:objectId=922803:objectType=Status</id>
+    <published>2017-04-22T00:12:35Z</published>
+    <updated>2017-04-22T00:12:35Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <summary>fediverse noodling again</summary>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://toot-lab.reclaim.technology/@djsundog" class="u-url mention"&gt;@djsundog&lt;/a&gt;&lt;/span&gt; streamers were complaining that their commercial breaks weren&amp;apos;t lining up with the point in the video that they were supposed to go at&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://toot-lab.reclaim.technology/users/djsundog"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35424"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35424.atom"/>
+    <thr:in-reply-to ref="tag:icosahedron.website,2017-04-22:objectId=922787:objectType=Status" href="https://icosahedron.website/@parataxis/922787"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-22:objectId=922787:objectType=Status</id>
+    <published>2017-04-22T00:11:53Z</published>
+    <updated>2017-04-22T00:11:53Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <summary>fediverse noodling again</summary>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://toot-lab.reclaim.technology/@djsundog" class="u-url mention"&gt;@djsundog&lt;/a&gt;&lt;/span&gt; did you try to sync timecodes with external metadata? because we couldn&amp;apos;t get that to work well at twitch until we put them in the RTMP stream with the RTMP stream&amp;apos;s timecodes&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://toot-lab.reclaim.technology/users/djsundog"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35422"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35422.atom"/>
+    <thr:in-reply-to ref="tag:toot-lab.reclaim.technology,2017-04-21:objectId=113753:objectType=Status" href="https://toot-lab.reclaim.technology/users/djsundog/updates/1076"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=921873:objectType=Status</id>
+    <published>2017-04-21T23:34:38Z</published>
+    <updated>2017-04-21T23:34:38Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <summary>fediverse noodling again</summary>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://toot-lab.reclaim.technology/@djsundog" class="u-url mention"&gt;@djsundog&lt;/a&gt;&lt;/span&gt; timecode syncing is really hard if you&amp;apos;re not sending the metadata in the video transport. your events are going to be seconds off from where they&amp;apos;re supposed to be a lot of the time&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://toot-lab.reclaim.technology/users/djsundog"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35413"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35413.atom"/>
+    <thr:in-reply-to ref="tag:toot-lab.reclaim.technology,2017-04-21:objectId=113711:objectType=Status" href="https://toot-lab.reclaim.technology/users/djsundog/updates/1074"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=921410:objectType=Status</id>
+    <published>2017-04-21T23:18:50Z</published>
+    <updated>2017-04-21T23:18:50Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <summary>fediverse noodling again</summary>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://toot-lab.reclaim.technology/@djsundog" class="u-url mention"&gt;@djsundog&lt;/a&gt;&lt;/span&gt; atom wasn&amp;apos;t designed for realtime. pubsubhubub is a little lower latency but the people who designed it were still thinking of blog updates, not live-streaming&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://toot-lab.reclaim.technology/users/djsundog"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35408"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35408.atom"/>
+    <thr:in-reply-to ref="tag:icosahedron.website,2017-04-21:objectId=921350:objectType=Status" href="https://icosahedron.website/@parataxis/921350"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=921350:objectType=Status</id>
+    <published>2017-04-21T23:17:16Z</published>
+    <updated>2017-04-21T23:17:16Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <summary>fediverse noodling again</summary>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://toot-lab.reclaim.technology/@djsundog" class="u-url mention"&gt;@djsundog&lt;/a&gt;&lt;/span&gt; for video streaming, HLS or RTMP (though RTMP is basically dead for playback because everyone hates flash now)&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://toot-lab.reclaim.technology/users/djsundog"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35406"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35406.atom"/>
+    <thr:in-reply-to ref="tag:toot-lab.reclaim.technology,2017-04-21:objectId=113436:objectType=Status" href="https://toot-lab.reclaim.technology/users/djsundog/updates/1073"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=920850:objectType=Status</id>
+    <published>2017-04-21T22:59:00Z</published>
+    <updated>2017-04-21T22:59:00Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <summary>fediverse noodling again</summary>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://toot-lab.reclaim.technology/@djsundog" class="u-url mention"&gt;@djsundog&lt;/a&gt;&lt;/span&gt; yes but why would you do that when you have the opportunity to switch to a better protocol?&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://toot-lab.reclaim.technology/users/djsundog"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35393"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35393.atom"/>
+    <thr:in-reply-to ref="tag:toot-lab.reclaim.technology,2017-04-21:objectId=113358:objectType=Status" href="https://toot-lab.reclaim.technology/users/djsundog/updates/1071"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=920800:objectType=Status</id>
+    <published>2017-04-21T22:57:03Z</published>
+    <updated>2017-04-21T22:57:03Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://plateia.org/maiyannah" class="u-url mention"&gt;@maiyannah&lt;/a&gt;&lt;/span&gt; fetching stuff over the internet from blocking ruby code = bad&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://plateia.org/user/1"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35389"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35389.atom"/>
+    <thr:in-reply-to ref="tag:icosahedron.website,2017-04-21:objectId=920773:objectType=Status" href="https://icosahedron.website/@parataxis/920773"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=920773:objectType=Status</id>
+    <published>2017-04-21T22:56:19Z</published>
+    <updated>2017-04-21T22:56:19Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://plateia.org/maiyannah" class="u-url mention"&gt;@maiyannah&lt;/a&gt;&lt;/span&gt; yeah, and I think that&amp;apos;s the rails worker processes&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://plateia.org/user/1"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35386"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35386.atom"/>
+    <thr:in-reply-to ref="tag:plateia.org,2017-04-21:noticeId=36933:objectType=comment" href="https://plateia.org/notice/36933"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=920737:objectType=Status</id>
+    <published>2017-04-21T22:55:16Z</published>
+    <updated>2017-04-21T22:55:16Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://plateia.org/maiyannah" class="u-url mention"&gt;@maiyannah&lt;/a&gt;&lt;/span&gt; isn&amp;apos;t sidekiq a shim on top of redis?&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://plateia.org/user/1"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35385"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35385.atom"/>
+    <thr:in-reply-to ref="tag:plateia.org,2017-04-21:noticeId=36924:objectType=comment" href="https://plateia.org/notice/36924"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=887885:objectType=Status</id>
+    <published>2017-04-21T03:58:13Z</published>
+    <updated>2017-04-21T03:58:13Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://socially.constructed.space/users/KitRedgrave" class="u-url mention"&gt;@KitRedgrave&lt;/a&gt;&lt;/span&gt; yes&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://socially.constructed.space/users/KitRedgrave"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/34726"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/34726.atom"/>
+    <thr:in-reply-to ref="tag:socially.constructed.space,2017-04-21:objectId=426718:objectType=Status" href="https://socially.constructed.space/users/KitRedgrave/updates/10097"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=887858:objectType=Status</id>
+    <published>2017-04-21T03:56:58Z</published>
+    <updated>2017-04-21T03:56:58Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://mastodon.social/@rabcyr" class="u-url mention"&gt;@rabcyr&lt;/a&gt;&lt;/span&gt; ::flying toaster emoji::&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.social/users/rabcyr"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/34725"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/34725.atom"/>
+    <thr:in-reply-to ref="tag:mastodon.social,2017-04-21:objectId=3519820:objectType=Status" href="https://mastodon.social/users/rabcyr/updates/1997379"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=886538:objectType=Status</id>
+    <published>2017-04-21T02:53:26Z</published>
+    <updated>2017-04-21T02:53:26Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://mastodon.social/@rabcyr" class="u-url mention"&gt;@rabcyr&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://mastodon.social/@obra" class="u-url mention"&gt;@obra&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://sungo.io/@sungo" class="u-url mention"&gt;@sungo&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://toot-lab.reclaim.technology/@djsundog" class="u-url mention"&gt;@djsundog&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://mastodon.hasameli.com/@munin" class="u-url mention"&gt;@munin&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://mastodon.social/@sushee" class="u-url mention"&gt;@sushee&lt;/a&gt;&lt;/span&gt; 🎉&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.social/users/sushee"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.hasameli.com/users/munin"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://toot-lab.reclaim.technology/users/djsundog"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://sungo.io/users/sungo"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.social/users/obra"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.social/users/rabcyr"/>
+    <mastodon:scope>unlisted</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/34707"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/34707.atom"/>
+    <thr:in-reply-to ref="tag:mastodon.social,2017-04-21:objectId=3511046:objectType=Status" href="https://mastodon.social/users/rabcyr/updates/1994404"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-21:objectId=885694:objectType=Status</id>
+    <published>2017-04-21T02:08:23Z</published>
+    <updated>2017-04-21T02:08:23Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/note</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;What federation is good for &lt;a href="https://www.hella.cheap/what-federation-is-good-for.html" rel="nofollow noopener" target="_blank"&gt;&lt;span class="invisible"&gt;https://www.&lt;/span&gt;&lt;span class="ellipsis"&gt;hella.cheap/what-federation-is&lt;/span&gt;&lt;span class="invisible"&gt;-good-for.html&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/34687"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/34687.atom"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-20:objectId=871856:objectType=Status</id>
+    <published>2017-04-20T18:36:04Z</published>
+    <updated>2017-04-20T18:36:04Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <summary>hacker news + mastodon = ???</summary>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://mastodon.social/@cemerick" class="u-url mention"&gt;@cemerick&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://chaos.social/@blinry" class="u-url mention"&gt;@blinry&lt;/a&gt;&lt;/span&gt; I&amp;apos;m on the verge of getting annoyed enough to write a blog post&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://chaos.social/users/blinry"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.social/users/cemerick"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/34485"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/34485.atom"/>
+    <thr:in-reply-to ref="tag:mastodon.social,2017-04-20:objectId=3443104:objectType=Status" href="https://mastodon.social/users/cemerick/updates/1969466"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-20:objectId=871685:objectType=Status</id>
+    <published>2017-04-20T18:31:12Z</published>
+    <updated>2017-04-20T18:31:12Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://mastodon.social/@sten0_SE" class="u-url mention"&gt;@sten0_SE&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://mastodon.hasameli.com/@munin" class="u-url mention"&gt;@munin&lt;/a&gt;&lt;/span&gt; putting an &amp;quot;OK&amp;quot; button on these dialogs was an irresponsible decision on Apple&amp;apos;s part, IMO&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.hasameli.com/users/munin"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.social/users/sten0_SE"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/34479"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/34479.atom"/>
+    <thr:in-reply-to ref="tag:icosahedron.website,2017-04-20:objectId=871584:objectType=Status" href="https://icosahedron.website/@parataxis/871584"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-20:objectId=871584:objectType=Status</id>
+    <published>2017-04-20T18:29:15Z</published>
+    <updated>2017-04-20T18:29:15Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://mastodon.hasameli.com/@munin" class="u-url mention"&gt;@munin&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://mastodon.social/@sten0_SE" class="u-url mention"&gt;@sten0_SE&lt;/a&gt;&lt;/span&gt; &lt;a href="https://icosahedron.website/media/uhF3WnD3c1S-DtSCUiY" rel="nofollow noopener" target="_blank"&gt;&lt;span class="invisible"&gt;https://&lt;/span&gt;&lt;span class="ellipsis"&gt;icosahedron.website/media/uhF3&lt;/span&gt;&lt;span class="invisible"&gt;WnD3c1S-DtSCUiY&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.social/users/sten0_SE"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.hasameli.com/users/munin"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <link rel="enclosure" type="image/png" length="161875" href="https://icosahedron.website/system/media_attachments/files/000/069/823/original/0a001d9684ec5b78.png"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/34478"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/34478.atom"/>
+    <thr:in-reply-to ref="tag:icosahedron.website,2017-04-20:objectId=871276:objectType=Status" href="https://icosahedron.website/@parataxis/871276"/>
+  </entry>
+  <entry>
+    <id>tag:icosahedron.website,2017-04-20:objectId=871276:objectType=Status</id>
+    <published>2017-04-20T18:20:09Z</published>
+    <updated>2017-04-20T18:20:09Z</updated>
+    <title>New status by parataxis</title>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+    <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+    <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://mastodon.social/@sten0_SE" class="u-url mention"&gt;@sten0_SE&lt;/a&gt;&lt;/span&gt; &lt;span class="h-card"&gt;&lt;a href="https://mastodon.hasameli.com/@munin" class="u-url mention"&gt;@munin&lt;/a&gt;&lt;/span&gt;  they know exactly what the accept rate on that dialog is and what the impact of showing the dialog is on retention&lt;/p&gt;</content>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.hasameli.com/users/munin"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://mastodon.social/users/sten0_SE"/>
+    <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+    <mastodon:scope>public</mastodon:scope>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/34470"/>
+    <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/34470.atom"/>
+    <thr:in-reply-to ref="tag:mastodon.social,2017-04-20:objectId=3435519:objectType=Status" href="https://mastodon.social/users/sten0_SE/updates/1967931"/>
+  </entry>
+</feed>

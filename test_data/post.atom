@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:poco="http://portablecontacts.net/spec/1.0" xmlns:media="http://purl.org/syndication/atommedia" xmlns:ostatus="http://ostatus.org/schema/1.0" xmlns:mastodon="http://mastodon.social/schema/1.0">
+  <id>tag:icosahedron.website,2017-04-22:objectId=922787:objectType=Status</id>
+  <published>2017-04-22T00:11:53Z</published>
+  <updated>2017-04-22T00:11:53Z</updated>
+  <title>New status by parataxis</title>
+  <author>
+    <id>https://icosahedron.website/users/parataxis</id>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    <uri>https://icosahedron.website/users/parataxis</uri>
+    <name>parataxis</name>
+    <email>parataxis@icosahedron.website</email>
+    <summary>best mesothelioma lawyer dallas truck accident lawyer truck accident lawyer houston loisville car accident lawyer san diego water damage. @bobpoekert on twitter</summary>
+    <link rel="alternate" type="text/html" href="https://icosahedron.website/@parataxis"/>
+    <link rel="avatar" type="image/jpeg" media:width="120" media:height="120" href="https://icosahedron.website/system/accounts/avatars/000/003/206/original/e7d13c2dd2a8b28e.jpeg?1491246678"/>
+    <link rel="header" type="image/jpeg" media:width="700" media:height="335" href="https://icosahedron.website/system/accounts/headers/000/003/206/original/bb4fefe827c66aa8.jpeg?1491246678"/>
+    <poco:preferredUsername>parataxis</poco:preferredUsername>
+    <poco:displayName>bob ✅</poco:displayName>
+    <poco:note>best mesothelioma lawyer dallas truck accident lawyer truck accident lawyer houston loisville car accident lawyer san diego water damage. @bobpoekert on twitter</poco:note>
+    <mastodon:scope>public</mastodon:scope>
+  </author>
+  <activity:object-type>http://activitystrea.ms/schema/1.0/comment</activity:object-type>
+  <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+  <summary>fediverse noodling again</summary>
+  <content type="html">&lt;p&gt;&lt;span class="h-card"&gt;&lt;a href="https://toot-lab.reclaim.technology/@djsundog" class="u-url mention"&gt;@djsundog&lt;/a&gt;&lt;/span&gt; did you try to sync timecodes with external metadata? because we couldn&amp;apos;t get that to work well at twitch until we put them in the RTMP stream with the RTMP stream&amp;apos;s timecodes&lt;/p&gt;</content>
+  <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/person" href="https://toot-lab.reclaim.technology/users/djsundog"/>
+  <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+  <mastodon:scope>public</mastodon:scope>
+  <link rel="alternate" type="text/html" href="https://icosahedron.website/users/parataxis/updates/35422"/>
+  <link rel="self" type="application/atom+xml" href="https://icosahedron.website/users/parataxis/updates/35422.atom"/>
+  <thr:in-reply-to ref="tag:toot-lab.reclaim.technology,2017-04-21:objectId=113753:objectType=Status" href="https://toot-lab.reclaim.technology/users/djsundog/updates/1076"/>
+</entry>
