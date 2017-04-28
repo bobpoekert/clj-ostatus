@@ -46,5 +46,5 @@
 (deftest masto-status-atom
   (testing "post.atom parses correctly"
     (with-open [inp (io/input-stream "test_data/post.atom")]
-      (is (= (a/parse inp) test-post)))))
+      (is (= (a/parse inp) [test-post])))))
 
