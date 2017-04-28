@@ -32,8 +32,8 @@
   [node rel typ]
   (with-masto-ns
     ($x:attrs*
-      (format "./atom:link[rel='%s' and os:object-type='%s']"
-        rel (get u/types typ))
+      (format "./atom:link[@rel='%s' and @os:object-type='%s']"
+        rel (get types typ))
       node)))
 
 (defn parse-entry
@@ -42,12 +42,12 @@
     (let [text (text-getter entry)
           attr (attr-getter entry)]
       (c/map->Post {
-        :published (u/from-iso-string (text "./atom:published"))
-        :updated (u/from-iso-string (text "./atom:updated"))
+        :published (from-iso-string (text "./atom:published"))
+        :updated (from-iso-string (text "./atom:updated"))
         :title (text "./atom:title")
         :author (parse-author ($x:node "./atom:author" entry))
         :summary (text "./atom:summary")
-        :content (u/strip-html (text "./atom:content"))
+        :content (strip-html (text "./atom:content"))
         :scope (text "./mtdn:scope")
         :mentioned-user-urls (map :href (get-objects entry "mentioned" :person))
         :in-reply-to (map :href ($x:attrs* "./thr:in-reply-to" entry))

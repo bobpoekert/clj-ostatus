@@ -28,10 +28,20 @@
       :header-image-type "image/jpeg"
       :display-name "bob ✅"
       :scope "public"})
+    :scope "public"
     :mentioned-user-urls ["https://toot-lab.reclaim.technology/users/djsundog"]
     :in-reply-to ["https://toot-lab.reclaim.technology/users/djsundog/updates/1076"]
     :html-url "https://icosahedron.website/users/parataxis/updates/35422"
     :atom-url "https://icosahedron.website/users/parataxis/updates/35422.atom"}))
+
+(defn diff-records
+  [a b]
+  (doseq [[k v] a]
+    (let [v2 (get b k)]
+      (if-not (= v v2)
+        (if (and (map? v) (map? v2))
+          (diff-records v v2)
+          (prn [k v v2]))))))
 
 (deftest masto-status-atom
   (testing "post.atom parses correctly"

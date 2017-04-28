@@ -72,9 +72,7 @@
     (proxy [javax.xml.namespace.NamespaceContext] []
       (getNamespaceURI
         [prefix]
-        (let [res (get namespaces prefix javax.xml.XMLConstants/NULL_NS_URI)]
-          (prn [prefix res])
-          res))
+        (get namespaces prefix javax.xml.XMLConstants/NULL_NS_URI))
       (getPrefixes
         [v]
         nil)
