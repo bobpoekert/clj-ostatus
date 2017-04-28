@@ -25,8 +25,8 @@
   [nom & spec]
   (let [specmap (zipmap (take-nth 2 spec) (take-nth 2 (rest spec)))
         xp-keys (take-nth 2 (get specmap :xp []))
-        spec-spec (list :req (get specmap :req [])
-                        :opt (vec (concat (get specmap :opt []) xp-keys)))
+        spec-spec (list :req-un (get specmap :req [])
+                        :opt-un (vec (concat (get specmap :opt []) xp-keys)))
         gens (:xp specmap)
         genkeys (for [k xp-keys] (gensym (name k)))
         genvals (take-nth 2 (rest (get specmap :xp [])))
@@ -90,9 +90,16 @@
 (sp/def ::html-url url?)
 (sp/def ::av url?)
 (sp/def ::header-image url?)
+(sp/def ::av-width number?)
+(sp/def ::av-height number?)
+(sp/def ::header-image-width number?)
+(sp/def ::header-image-height number?)
+(sp/def ::av-type string?)
+(sp/def ::header-image-type string?)
 
 (specrec Account
-  :req [::username ::id ::qualified-username ::html-url ::av ::header-image]
+  :req [::username ::uri ::qualified-username ::html-url ::av ::header-image]
+  :opt [::av-width ::av-height ::header-image-width ::header-image-height ::av-type ::header-image-type]
   :xp [::display-name ::username
        ::bio (returns "")
        ::scope (returns "public")])
@@ -105,12 +112,17 @@
 (sp/def ::summary string?)
 (sp/def ::mentioned (sp/coll-of ::Post))
 (sp/def ::in-reply-to (sp/coll-of ::Post))
+(sp/def ::atom-url url?)
+(sp/def ::in-reply-to-urls (sp/coll-of url?))
+(sp/def ::mentioned-user-urls (sp/coll-of url?))
+
 
 (specrec Post
   :req [::published ::author ::content]
+  :opt [::atom-url ::html-url]
   :xp [::updated ::published
         ::title #(format "new status by %s" (::username (::author %)))
         ::summary #(clip-string 140 (::content %))
         ::scope (returns "public") 
-        ::mentioned (returns [])
+        ::mentioned-user-urls (returns [])
         ::in-reply-to (returns [])])

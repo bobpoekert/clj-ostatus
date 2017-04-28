@@ -1,7 +1,40 @@
 (ns ostatus.core-test
   (:require [clojure.test :refer :all]
-            [ostatus.core :refer :all]))
+            [ostatus.core :as c]
+            [ostatus.util :as u]
+            [ostatus.atom :as a]
+            [clojure.java.io :as io]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(def test-post 
+  (c/map->Post {
+    :published (u/from-iso-string "2017-04-22T00:11:53Z")
+    :updated (u/from-iso-string "2017-04-22T00:11:53Z")
+    :title "New status by parataxis"
+    :content "@djsundog did you try to sync timecodes with external metadata? because we couldn't get that to work well at twitch until we put them in the RTMP stream with the RTMP stream's timecodes"
+    :summary "fediverse noodling again"
+    :author (c/map->Account {
+      :uri "https://icosahedron.website/users/parataxis"
+      :username "parataxis"
+      :qualified-username "parataxis@icosahedron.website"
+      :bio "best mesothelioma lawyer dallas truck accident lawyer truck accident lawyer houston loisville car accident lawyer san diego water damage. @bobpoekert on twitter"
+      :html-url "https://icosahedron.website/@parataxis"
+      :av "https://icosahedron.website/system/accounts/avatars/000/003/206/original/e7d13c2dd2a8b28e.jpeg?1491246678"
+      :av-width 120
+      :av-height 120
+      :av-type "image/jpeg"
+      :header-image "https://icosahedron.website/system/accounts/headers/000/003/206/original/bb4fefe827c66aa8.jpeg?1491246678"
+      :header-image-width 700
+      :header-image-height 335
+      :header-image-type "image/jpeg"
+      :display-name "bob ✅"
+      :scope "public"})
+    :mentioned-user-urls ["https://toot-lab.reclaim.technology/users/djsundog"]
+    :in-reply-to ["https://toot-lab.reclaim.technology/users/djsundog/updates/1076"]
+    :html-url "https://icosahedron.website/users/parataxis/updates/35422"
+    :atom-url "https://icosahedron.website/users/parataxis/updates/35422.atom"}))
+
+(deftest masto-status-atom
+  (testing "post.atom parses correctly"
+    (with-open [inp (io/input-stream "test_data/post.atom")]
+      (is (= (a/parse inp) test-post)))))
+
