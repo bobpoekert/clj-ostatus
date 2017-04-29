@@ -24,7 +24,6 @@
 
 (defn- gen-expand-impl
   [argname typename gen-map ks]
-  (prn gen-map)
   `(~(symbol (format "->%s" (name typename)))
     ~@(for [k ks]
         (let [k (keyword (name k))]
@@ -51,13 +50,15 @@
                   xp-keys)]
     `(do
       ~@(map (fn [k v] `(def ~k ~v)) genkeys genvals)
+      ;; HACK: make optional keys nilable
+      ~@(for [k (get specmap :opt [])]
+        `(sp/def ~k (sp/nilable (sp/get-spec ~k))))
       (sp/def ~specname (sp/keys ~@spec-spec))
       (defrecord ~(symbol (name nom)) ~(vec (map #(symbol (name %)) specvals))
         Expand
         (expand [~argsym]
-          (prn ~argsym)
           (let [~argsym ~(gen-expand-impl argsym nom (zipmap (map strip-ns xp-keys) genkeys) specvals)]
-            ;;(sp/assert ~specname ~argsym)
+            (sp/assert ~specname ~argsym)
             ~argsym))))))
           
           
