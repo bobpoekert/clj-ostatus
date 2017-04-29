@@ -1,6 +1,6 @@
 (ns ostatus.atom
   (:require [clj-xpath.core :refer :all]
-            [ostatus.core :as c]
+            [ostatus.types :as c]
             [ostatus.util :refer :all]
             [hiccup.core :as h]))
 
@@ -36,6 +36,13 @@
         rel (get types typ))
       node)))
 
+(defn map->ref
+  [m]
+  (if m
+    (if (:ref m)
+      (c/->AtomRef (:ref m) (:href m))
+      (:href m))))
+
 (defn parse-entry
   [entry]
   (with-masto-ns
@@ -49,13 +56,63 @@
         :summary (text "./atom:summary")
         :content (strip-html (text "./atom:content"))
         :scope (text "./mtdn:scope")
-        :mentioned-user-urls (map :href (get-objects entry "mentioned" :person))
+        :mentioned-user-urls (map map->ref (get-objects entry "mentioned" :person))
         :in-reply-to (map :href ($x:attrs* "./thr:in-reply-to" entry))
-        :html-url (attr "./atom:link[@rel='alternate' and @type='text/html']" :href)
-        :atom-url (attr "./atom:link[@rel='self' and @type='application/atom+xml']" :href)}))))
+        :html-url (map->ref ($x:attrs? "./atom:link[@rel='alternate' and @type='text/html']" entry))
+        :atom-url (map->ref ($x:attrs? "./atom:link[@rel='self' and @type='application/atom+xml']" entry))}))))
 
 (defn parse
   [inp]
   (with-masto-ns
     (let [inp (read-doc inp)]
       (map parse-entry ($x:node* "./atom:entry" inp)))))
+
+(defn render-author
+  [account]
+  (let [account (c/expand account)]
+    (render-xml {:inner true}
+      [:atom:author
+        [:atom:id (c/atom-id-for account)]
+        [:activity:object-type (:person types)]
+        [:atom:uri (:uri account)]
+        [:atom:name (:username account)]
+        [:atom:email (:qualified-username account)]
+        [:atom:summary (:bio account)]
+        [:atom:link {:rel "alternate" :type "text/html" :href (:html-url account)}]
+        [:atom:link {
+          :rel "avatar" :type (:av-type account)
+          :media:width (:av-width account) :media:height (:av-height account)
+          :href (:av account)}]
+        [:atom:link {
+          :rel "header" :type (:header-image-type account)
+          :media:width (:header-image-width account) :media:height (:header-image-height account)
+          :href (:header-image account)}]
+        [:poco:preferredUsername (:username account)]
+        [:poco:displayName (:display-name account)]
+        [:poco:note (:bio account)]
+        [:mtdn:scope (:scope account)]])))
+   
+(defn render-post
+  [post]
+  (let [post (c/expand post)]
+    (render-xml
+      (xmlns-tag :entry :atom
+        [:atom:id (c/atom-id-for post)]
+        [:atom:published (to-iso-string (:published post))]
+        [:atom:updated (to-iso-string (:updated post))]
+        [:atom:title (:title post)]
+        (render-author (:author post))
+        [:activity:object-type (:comment types)]
+        [:activity:verb (:post verbs)]
+        [:atom:summary (:summary post)]
+        [:atom:content {:type "html"} (format "<pre>%s</pre>" (:content post))]
+        (for [u (:mentioned-user-urls post)]
+          [:atom:link {
+            :rel "mentioned"
+            :os:object-type (:person types)
+            :href (c/url-for u)}])
+        [:mtdn:scope (:scope post)]
+        [:atom:link {:rel "alternate" :type "text/html" :href (:html-url post)}]
+        [:atom:link {:rel "self" :type "application/atom+xml" :href (:atom-url post)}]
+        (for [v (:in-reply-to post)]
+          [:thr:in-reply-to {:ref (c/atom-id-for v) :href (c/url-for v)}])))))

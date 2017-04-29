@@ -1,9 +1,14 @@
 (ns ostatus.core-test
   (:require [clojure.test :refer :all]
-            [ostatus.core :as c]
+            [ostatus.types :as c]
             [ostatus.util :as u]
             [ostatus.atom :as a]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [clojure.spec :as sp]
+            [clojure.test.check :as tc]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.properties :as prop]
+            [clojure.test.check.clojure-test :refer [defspec]]))
 
 (def test-post 
   (c/map->Post {
@@ -46,5 +51,13 @@
 (deftest masto-status-atom
   (testing "post.atom parses correctly"
     (with-open [inp (io/input-stream "test_data/post.atom")]
-      (is (= (a/parse inp) [test-post])))))
+      (is (= (a/parse inp) [test-post]))))
+  (testing "test post roundtrips"
+    (is (= (a/parse (a/render-post test-post)) [test-post]))))
 
+(comment
+(defspec atom-roundtrip
+  10000
+  (prop/for-all [post (sp/gen :ostatus.types/Post)]
+    (let [post (c/expand post)]
+      (= (a/parse (a/render-post post)) post)))))

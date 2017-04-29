@@ -1,7 +1,14 @@
 (ns ostatus.util
   (:import [java.time Instant]
            [org.jsoup Jsoup])
-  (:require [clj-xpath.core :refer :all]))
+  (:require [clj-xpath.core :refer :all]
+            [hiccup.core :as hc]
+            [hiccup.compiler :as hcc]
+            [hiccup.util :as hu]))
+
+(defn hash-string
+  [v]
+  (format "%x" (clojure.lang.Murmur3/hashInt (.hashCode v))))
 
 (defn to-iso-string
   [epoch-int]
@@ -104,3 +111,23 @@
   [node]
   (fn [q]
     ($x:text? q node)))
+
+(defn- inner-render-xml
+  ([opts things]
+    (if (:inner opts)
+      `(hc/html {:mode :xml} ~things)
+      `(hc/html {:mode :xml} "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ~things)))
+  ([things] (inner-render-xml {:inner false} things)))
+
+(defmacro render-xml
+  [& args]
+  (apply inner-render-xml args))
+
+(def xmlns-attrs
+  (zipmap
+    (map #(keyword (format "xmlns:%s" (name %))) (keys namespaces))
+    (vals namespaces)))
+
+(defmacro xmlns-tag
+  [tagname root-ns & children]
+  (into [tagname (assoc xmlns-attrs :xmlns (get namespaces root-ns))] children))
