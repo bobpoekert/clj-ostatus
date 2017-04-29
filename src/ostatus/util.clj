@@ -6,9 +6,19 @@
             [hiccup.compiler :as hcc]
             [hiccup.util :as hu]))
 
+(set! *warn-on-reflection* true)
+(def ^java.util.regex.Pattern illegal-character-pattern
+  #"[^\u0009\r\n\u0020-\uD7FF\uE000-\uFFFD\ud800\udc00-\udbff\udfff]")
+
+(defn ^String fix-illegal-xml
+  [^String v]
+  (->
+    (.matcher illegal-character-pattern v)
+    (.replaceAll "")))
+
 (defn hash-string
   [v]
-  (format "%x" (clojure.lang.Murmur3/hashInt (.hashCode v))))
+  (format "%x" (clojure.lang.Murmur3/hashInt (.hashCode ^Object v))))
 
 (defn to-iso-string
   [epoch-int]
@@ -115,8 +125,9 @@
 (defn- inner-render-xml
   ([opts things]
     (if (:inner opts)
-      `(hc/html {:mode :xml} ~things)
-      `(hc/html {:mode :xml} "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ~things)))
+      `(fix-illegal-xml (hc/html {:mode :xml :escape-strings? false} ~things))
+      `(fix-illegal-xml (hc/html {:mode :xml :escape-strings? false}
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ~things))))
   ([things] (inner-render-xml {:inner false} things)))
 
 (defmacro render-xml

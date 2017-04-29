@@ -55,9 +55,11 @@
   (testing "test post roundtrips"
     (is (= (a/parse (a/render-post test-post)) [test-post]))))
 
-(comment
 (defspec atom-roundtrip
   10000
   (prop/for-all [post (sp/gen :ostatus.types/Post)]
-    (let [post (c/expand post)]
-      (= (a/parse (a/render-post post)) post)))))
+    (let [post (assoc post :author (c/map->Account (:author post)))
+          post (c/map->Post post)
+          post (c/expand post)]
+      (prn post)
+      (= (a/parse (a/render-post post)) post))))

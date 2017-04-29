@@ -18,16 +18,21 @@
   nil
   (expand [v] nil))
 
+(defn strip-ns
+  [kw]
+  (keyword (name kw)))
+
 (defn- gen-expand-impl
-  [argname gens]
-  (let [tn (gensym "expand-temp")
-        bind (into [tn argname]
-              (apply concat
-                (for [[k gen] (partition 2 gens)]
-                  [tn `(if (nil? (get ~tn ~k))
-                        (assoc ~tn ~k (expand (~gen (get ~tn ~k))))
-                        ~tn)])))]
-    `(let ~bind ~tn)))
+  [argname typename gen-map ks]
+  (prn gen-map)
+  `(~(symbol (format "->%s" (name typename)))
+    ~@(for [k ks]
+        (let [k (keyword (name k))]
+          (list 'expand
+            (if (get gen-map k)
+              `(let [v# (get ~argname ~k)]
+                (if (nil? v#) (~(get gen-map k) ~argname) v#))
+              `(get ~argname ~k)))))))
 
 (defmacro specrec
   [nom & spec]
@@ -50,10 +55,10 @@
       (defrecord ~(symbol (name nom)) ~(vec (map #(symbol (name %)) specvals))
         Expand
         (expand [~argsym]
-          (sp/assert ~specname ~argsym)
-          (let [res# ~(gen-expand-impl argsym (interleave (map #(keyword (name %)) xp-keys) genkeys))]
-            (sp/assert ~specname res#)
-            res#))))))
+          (prn ~argsym)
+          (let [~argsym ~(gen-expand-impl argsym nom (zipmap (map strip-ns xp-keys) genkeys) specvals)]
+            ;;(sp/assert ~specname ~argsym)
+            ~argsym))))))
           
           
 ;; types: account
@@ -81,22 +86,6 @@
   [v]
   (fn [& a] v))
 
-(defn matches-re?
-  [^java.util.regex.Pattern re]
-  (sp/with-gen
-    (fn [^CharSequence v]
-      (.matches (.matcher re v)))
-    (fn [] (string-from-regex re))))
-
-(defn one-of?
-  [vs]
-  (sp/with-gen
-    (fn [v]
-      (boolean (some #(= % v) vs)))
-    (fn [] (gen/elements vs))))
-
-(def url? (matches-re? #"(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+"))
-
 (defprotocol UrlFor
   (url-for [v]))
 
@@ -122,6 +111,25 @@
   Object
   (toString [r] (:href r)))
 
+(defn matches-re?
+  [^java.util.regex.Pattern re]
+  (sp/with-gen
+    (fn [v]
+      (let [v (if (instance? AtomRef v) (:href v) v)]
+        (if (nil? v)
+          false
+          (.matches (.matcher re ^CharSequence v)))))
+    (fn [] (string-from-regex re))))
+
+(defn one-of?
+  [vs]
+  (sp/with-gen
+    (fn [v]
+      (boolean (some #(= % v) vs)))
+    (fn [] (gen/elements vs))))
+
+(def url? (matches-re? #"https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+"))
+
 (sp/def ::username string?)
 (sp/def ::id url?)
 (sp/def ::uri url?)
@@ -130,10 +138,10 @@
 (sp/def ::html-url url?)
 (sp/def ::av url?)
 (sp/def ::header-image url?)
-(sp/def ::av-width number?)
-(sp/def ::av-height number?)
-(sp/def ::header-image-width number?)
-(sp/def ::header-image-height number?)
+(sp/def ::av-width integer?)
+(sp/def ::av-height integer?)
+(sp/def ::header-image-width integer?)
+(sp/def ::header-image-height integer?)
 (sp/def ::av-type string?)
 (sp/def ::header-image-type string?)
 (sp/def ::bio string?)
@@ -142,7 +150,7 @@
 (specrec Account
   :req [::username ::uri ::qualified-username ::html-url ::av ::header-image]
   :opt [::av-width ::av-height ::header-image-width ::header-image-height ::av-type ::header-image-type]
-  :xp [::display-name ::username
+  :xp [::display-name :username
        ::bio (returns "")
        ::scope (returns "public")])
 
@@ -154,15 +162,14 @@
     (hash-string (:html-url a))))
 
 (sp/def ::author ::Account)
-(sp/def ::published number?)
+(sp/def ::published integer?)
 (sp/def ::content string?)
-(sp/def ::updated number?)
+(sp/def ::updated integer?)
 (sp/def ::title string?)
 (sp/def ::summary string?)
 (sp/def ::mentioned (sp/coll-of ::Post))
-(sp/def ::in-reply-to (sp/coll-of #(or (string? %) (instance? AtomRef %))))
+(sp/def ::in-reply-to (sp/coll-of url?))
 (sp/def ::atom-url url?)
-(sp/def ::in-reply-to-urls (sp/coll-of url?))
 (sp/def ::mentioned-user-urls (sp/coll-of url?))
 
 (specrec Post
