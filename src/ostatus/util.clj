@@ -1,38 +1,49 @@
 (ns ostatus.util
   (:import [java.time Instant]
-           [org.jsoup Jsoup])
+           [org.jsoup Jsoup]
+           [org.w3c.dom Document Element Node]
+           [javax.xml.parsers DocumentBuilder DocumentBuilderFactory]
+           [javax.xml.transform Transformer TransformerFactory]
+           [javax.xml.transform.dom DOMSource]
+           [javax.xml.transform.stream StreamResult]
+           [javax.xml.xpath XPath]
+           [java.io StringWriter]
+           ThreadLocalThing)
   (:require [clj-xpath.core :refer :all]
             [hiccup.core :as hc]
             [hiccup.compiler :as hcc]
             [hiccup.util :as hu]))
 
-(set! *warn-on-reflection* true)
-(def ^java.util.regex.Pattern illegal-character-pattern
-  #"[^\u0009\r\n\u0020-\uD7FF\uE000-\uFFFD\ud800\udc00-\udbff\udfff]")
+(defn make-thread-local
+  [generator]
+  (ThreadLocalThing. ::initial-val generator))
 
-(defn ^String fix-illegal-xml
-  [^String v]
-  (->
-    (.matcher illegal-character-pattern v)
-    (.replaceAll "")))
+(defmacro thread-local
+  [& body]
+  `(make-thread-local (fn [] ~@body)))
+
+(set! *warn-on-reflection* true)
 
 (defn hash-string
   [v]
-  (format "%x" (clojure.lang.Murmur3/hashInt (.hashCode ^Object v))))
+  (if (nil? v)
+    ""
+    (format "%x" (clojure.lang.Murmur3/hashInt (.hashCode ^Object v)))))
 
 (defn to-iso-string
   [epoch-int]
-  (if-not (nil? epoch-int)
-    (.toString (Instant/ofEpochSecond epoch-int))))
+  (cond
+    (nil? epoch-int) nil
+    :else (.toString (Instant/ofEpochSecond epoch-int))))
 
 (defn from-iso-string
   [^String v]
-  (if v
+  (if-not (nil? v)
     (.getEpochSecond (Instant/parse v))))
 
 (defn strip-html
   [^String s]
-  (if s
+  (if-not (nil? s)
     (.text (Jsoup/parse s))))
 
 (def namespaces {
@@ -73,7 +84,7 @@
 
 (defn number
   [v]
-  (if v (Integer/decode v)))
+  (if v (Long/decode v)))
 
 (defn normalize-url
   [^String url]
@@ -97,15 +108,41 @@
         [uri]
         (get inverse uri)))))
 
-(def masto-xpath-compiler (.newXPath *xpath-factory*))
-(.setNamespaceContext masto-xpath-compiler
-  (ns-context namespaces))
+;; workaround for http://stackoverflow.com/questions/6340802/java-xpath-apache-jaxp-implementation-performance
+(System/setProperty "org.apache.xml.dtm.DTMManager" "org.apache.xml.dtm.ref.DTMManagerDefault")
+(System/setProperty "com.sun.org.apache.xml.internal.dtm.DTMManager" "com.sun.org.apache.xml.internal.dtm.ref.DTMManagerDefault")
 
+(defrecord XpathContext [
+  ^javax.xml.xpath.XPathFactory xpath-factory
+  ^XPath xpath-compiler
+  ^java.util.Map compiled-xpaths])
+
+(def xpath-context
+  (thread-local
+    (let [factory (org.apache.xpath.jaxp.XPathFactoryImpl.)
+          ^XPath compiler (.newXPath factory)]
+      (.setNamespaceContext compiler
+        (ns-context namespaces))
+      (->XpathContext factory compiler (java.util.HashMap.)))))
+
+(def ^{:dynamic true} *is-masto-ns* false)
 (defmacro with-masto-ns
   [& bodies]
   `(binding [clj-xpath.core/*namespace-aware* true
-             clj-xpath.core/*xpath-compiler* masto-xpath-compiler]
+             *is-masto-ns* true
+             clj-xpath.core/*xpath-compiler* (:xpath-compiler @xpath-context)]
     ~@bodies))
+
+(defn xp
+  [^String query]
+  (if *is-masto-ns*
+    (let [res (get (:compiled-xpaths @xpath-context) query)]
+      (if res
+        res
+        (let [res (.compile ^XPath (:xpath-compiler @xpath-context)  query)]
+          (.put ^java.util.Map (:compiled-xpaths @xpath-context) query res)
+          res)))
+    query))
 
 (defn read-doc
   [doc]
@@ -114,25 +151,73 @@
 (defn attr-getter
   [node]
   (fn [q attr]
-    (if-let [t ($x:attrs? q node)]
-      (get t attr))))
+    (let [q (xp q)]
+      (if-let [t ($x:attrs? q node)]
+        (get t attr)))))
 
 (defn text-getter
   [node]
   (fn [q]
-    ($x:text? q node)))
+    (let [q (xp q)]
+      ($x:text? q node))))
 
-(defn- inner-render-xml
-  ([opts things]
-    (if (:inner opts)
-      `(fix-illegal-xml (hc/html {:mode :xml :escape-strings? false} ~things))
-      `(fix-illegal-xml (hc/html {:mode :xml :escape-strings? false}
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" ~things))))
-  ([things] (inner-render-xml {:inner false} things)))
+(defn apply-attributes!
+  [^Element tag attrs]
+  (doseq [[k v] attrs]
+    (if-not (nil? v)
+      (.setAttribute tag (name k) (str v)))))
 
-(defmacro render-xml
-  [& args]
-  (apply inner-render-xml args))
+(defprotocol MakeDomTag
+  (make-dom-tag [v ^Document doc]))
+
+(extend-protocol MakeDomTag
+  clojure.lang.PersistentVector
+  (make-dom-tag [v ^Document doc]
+    (let [tag (.createElement doc (name (first v)))]
+      (if (map? (second v))
+        (do
+          (apply-attributes! tag (second v))
+          (doseq [child (rest (rest v))]
+            (.appendChild tag (make-dom-tag child doc))))
+        (doseq [child (rest v)]
+          (.appendChild tag (make-dom-tag child doc))))
+      tag))
+  String
+  (make-dom-tag [v ^Document doc]
+    (.createTextNode doc v))
+  clojure.lang.Seqable
+  (make-dom-tag [v ^Document doc]
+    (let [f (.createDocumentFragment doc)]
+      (doseq [e v]
+        (.appendChild f (make-dom-tag e doc)))
+      f))
+  Object
+  (make-dom-tag [v ^Document doc]
+    (make-dom-tag (str v) doc))
+  nil
+  (make-dom-tag [v ^Document doc]
+    (make-dom-tag "" doc)))
+   
+(def ^DocumentBuilder doc-factory (.newDocumentBuilder (DocumentBuilderFactory/newInstance)))
+(defn ^Document new-doc
+  []
+  (.newDocument doc-factory))
+
+(def ^TransformerFactory transformer-factory (TransformerFactory/newInstance))
+(defn render-document
+  [^Document doc]
+  (let [^Transformer transformer (.newTransformer transformer-factory)
+        ^DOMSource source (DOMSource. doc)
+        ^StringWriter outp (StringWriter.)
+        ^StreamResult sr (StreamResult. outp)]
+    (.transform transformer source sr)
+    (.toString outp)))
+
+(defn render-xml
+  [tree]
+  (let [doc (new-doc)]
+    (.appendChild doc (make-dom-tag tree doc))
+    (render-document doc)))
 
 (def xmlns-attrs
   (zipmap

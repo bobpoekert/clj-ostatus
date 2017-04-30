@@ -93,9 +93,16 @@
 (defprotocol AtomIdFor
   (atom-id-for [v]))
 
+(defprotocol Unref
+  (unref [v]))
+
 (extend-protocol AtomIdFor
   Object
   (atom-id-for [v] (hash-string (.hashCode v))))
+
+(extend-protocol Unref
+  Object
+  (unref [v] v))
 
 (extend-type String
   UrlFor
@@ -109,14 +116,18 @@
   (url-for [r] (:href r))
   AtomIdFor
   (atom-id-for [r] (:ref r))
+  Unref
+  (unref [v] (:href v))
   Object
   (toString [r] (:href r)))
+
+
 
 (defn matches-re?
   [^java.util.regex.Pattern re]
   (sp/with-gen
     (fn [v]
-      (let [v (if (instance? AtomRef v) (:href v) v)]
+      (let [v (unref v)]
         (if (nil? v)
           false
           (.matches (.matcher re ^CharSequence v)))))
@@ -130,12 +141,14 @@
     (fn [] (gen/elements vs))))
 
 (def url? (matches-re? #"https?:\/\/[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+"))
+(def email? (matches-re? #"[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+@[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+\.[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+"))
+(def epoch-int? (sp/with-gen integer? #(gen/large-integer* {:min -32513966177 :max 32513966177})))
 
 (sp/def ::username string?)
 (sp/def ::id url?)
 (sp/def ::uri url?)
 (sp/def ::display-name string?)
-(sp/def ::qualified-username (matches-re? #"[^\.]+@[^\.]+\..+"))
+(sp/def ::qualified-username email?)
 (sp/def ::html-url url?)
 (sp/def ::av url?)
 (sp/def ::header-image url?)
@@ -163,9 +176,9 @@
     (hash-string (:html-url a))))
 
 (sp/def ::author ::Account)
-(sp/def ::published integer?)
+(sp/def ::published epoch-int?)
+(sp/def ::updated epoch-int?)
 (sp/def ::content string?)
-(sp/def ::updated integer?)
 (sp/def ::title string?)
 (sp/def ::summary string?)
 (sp/def ::mentioned (sp/coll-of ::Post))

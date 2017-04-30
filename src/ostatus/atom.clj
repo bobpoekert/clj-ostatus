@@ -4,6 +4,8 @@
             [ostatus.util :refer :all]
             [hiccup.core :as h]))
 
+(set! *warn-on-reflection* true)
+
 (defn parse-author
   [author]
   (with-masto-ns
@@ -32,8 +34,9 @@
   [node rel typ]
   (with-masto-ns
     ($x:attrs*
-      (format "./atom:link[@rel='%s' and @os:object-type='%s']"
-        rel (get types typ))
+      (xp
+        (format "./atom:link[@rel='%s' and @os:object-type='%s']"
+          rel (get types typ)))
       node)))
 
 (defn map->ref
@@ -52,14 +55,14 @@
         :published (from-iso-string (text "./atom:published"))
         :updated (from-iso-string (text "./atom:updated"))
         :title (text "./atom:title")
-        :author (parse-author ($x:node "./atom:author" entry))
+        :author (parse-author ($x:node (xp "./atom:author") entry))
         :summary (text "./atom:summary")
         :content (strip-html (text "./atom:content"))
         :scope (text "./mtdn:scope")
         :mentioned-user-urls (map map->ref (get-objects entry "mentioned" :person))
-        :in-reply-to (map :href ($x:attrs* "./thr:in-reply-to" entry))
-        :html-url (map->ref ($x:attrs? "./atom:link[@rel='alternate' and @type='text/html']" entry))
-        :atom-url (map->ref ($x:attrs? "./atom:link[@rel='self' and @type='application/atom+xml']" entry))}))))
+        :in-reply-to (map :href ($x:attrs* (xp "./thr:in-reply-to") entry))
+        :html-url (map->ref ($x:attrs? (xp "./atom:link[@rel='alternate' and @type='text/html']") entry))
+        :atom-url (map->ref ($x:attrs? (xp "./atom:link[@rel='self' and @type='application/atom+xml']") entry))}))))
 
 (defn parse
   [inp]
@@ -67,52 +70,58 @@
     (let [inp (read-doc inp)]
       (map parse-entry ($x:node* "./atom:entry" inp)))))
 
-(defn render-author
+(defn author-tree
   [account]
   (let [account (c/expand account)]
-    (render-xml {:inner true}
-      [:atom:author
-        [:atom:id (c/atom-id-for account)]
-        [:activity:object-type (:person types)]
-        [:atom:uri (:uri account)]
-        [:atom:name (:username account)]
-        [:atom:email (:qualified-username account)]
-        [:atom:summary (:bio account)]
-        [:atom:link {:rel "alternate" :type "text/html" :href (:html-url account)}]
-        [:atom:link {
-          :rel "avatar" :type (:av-type account)
-          :media:width (:av-width account) :media:height (:av-height account)
-          :href (:av account)}]
-        [:atom:link {
-          :rel "header" :type (:header-image-type account)
-          :media:width (:header-image-width account) :media:height (:header-image-height account)
-          :href (:header-image account)}]
-        [:poco:preferredUsername (:username account)]
-        [:poco:displayName (:display-name account)]
-        [:poco:note (:bio account)]
-        [:mtdn:scope (:scope account)]])))
+    [:atom:author
+      [:atom:id (c/atom-id-for account)]
+      [:activity:object-type (:person types)]
+      [:atom:uri (:uri account)]
+      [:atom:name (:username account)]
+      [:atom:email (:qualified-username account)]
+      [:atom:summary (:bio account)]
+      [:atom:link {:rel "alternate" :type "text/html" :href (:html-url account)}]
+      [:atom:link {
+        :rel "avatar" :type (:av-type account)
+        :media:width (:av-width account) :media:height (:av-height account)
+        :href (:av account)}]
+      [:atom:link {
+        :rel "header" :type (:header-image-type account)
+        :media:width (:header-image-width account) :media:height (:header-image-height account)
+        :href (:header-image account)}]
+      [:poco:preferredUsername (:username account)]
+      [:poco:displayName (:display-name account)]
+      [:poco:note (:bio account)]
+      [:mtdn:scope (:scope account)]]))
    
-(defn render-post
+(defn post-tree
   [post]
   (let [post (c/expand post)]
-    (render-xml
-      (xmlns-tag :entry :atom
-        [:atom:id (c/atom-id-for post)]
-        [:atom:published (to-iso-string (:published post))]
-        [:atom:updated (to-iso-string (:updated post))]
-        [:atom:title (:title post)]
-        (render-author (:author post))
-        [:activity:object-type (:comment types)]
-        [:activity:verb (:post verbs)]
-        [:atom:summary (:summary post)]
-        [:atom:content {:type "html"} (format "<pre>%s</pre>" (:content post))]
-        (for [u (:mentioned-user-urls post)]
-          [:atom:link {
-            :rel "mentioned"
-            :os:object-type (:person types)
-            :href (c/url-for u)}])
-        [:mtdn:scope (:scope post)]
-        [:atom:link {:rel "alternate" :type "text/html" :href (:html-url post)}]
-        [:atom:link {:rel "self" :type "application/atom+xml" :href (:atom-url post)}]
-        (for [v (:in-reply-to post)]
-          [:thr:in-reply-to {:ref (c/atom-id-for v) :href (c/url-for v)}])))))
+    (xmlns-tag :entry :atom
+      [:atom:id (c/atom-id-for post)]
+      [:atom:published (to-iso-string (:published post))]
+      [:atom:updated (to-iso-string (:updated post))]
+      [:atom:title (:title post)]
+      (author-tree (:author post))
+      [:activity:object-type (:comment types)]
+      [:activity:verb (:post verbs)]
+      [:atom:summary (:summary post)]
+      [:atom:content {:type "html"} (format "<pre>%s</pre>" (:content post))]
+      (for [u (:mentioned-user-urls post)]
+        [:atom:link {
+          :rel "mentioned"
+          :os:object-type (:person types)
+          :href (c/url-for u)}])
+      [:mtdn:scope (:scope post)]
+      [:atom:link {:rel "alternate" :type "text/html" :href (:html-url post)}]
+      [:atom:link {:rel "self" :type "application/atom+xml" :href (:atom-url post)}]
+      (for [v (:in-reply-to post)]
+        [:thr:in-reply-to {:ref (c/atom-id-for v) :href (c/url-for v)}]))))
+
+(defn render-author
+  [author]
+  (render-xml (author-tree author)))
+
+(defn render-post
+  [post]
+  (render-xml (post-tree post)))

@@ -7,6 +7,7 @@
                                   [diff-eq "0.2.3"]]
                    :injections [(require 'diff-eq.core)
                                 (diff-eq.core/diff!)]}}
+  :java-source-paths ["src/java"]
   :dependencies [
                   [org.clojure/clojure "1.9.0-alpha15"]
                   [com.gfredericks/test.chuck "0.2.7"]

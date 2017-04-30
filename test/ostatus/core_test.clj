@@ -8,7 +8,8 @@
             [clojure.test.check :as tc]
             [clojure.test.check.generators :as gen]
             [clojure.test.check.properties :as prop]
-            [clojure.test.check.clojure-test :refer [defspec]]))
+            [clojure.test.check.clojure-test :refer [defspec]]
+            [com.gfredericks.test.chuck.generators :refer [string-from-regex]]))
 
 (def test-post 
   (c/map->Post {
@@ -48,12 +49,24 @@
           (diff-records v v2)
           (prn [k v v2]))))))
 
+(def gen-posts [
+  (c/expand (c/map->Post {:published 0, :author (c/map->Account {:username "", :uri "http://-.-!", :qualified-username "!@!.!", :html-url "http://-.-!", :av "http://-.-!", :header-image "http://-.-!"}), :content ""}))
+  (c/expand
+    (c/map->Post {:published 31556889864403200, :author (c/map->Account {:username "", :uri "http://-.-!", :qualified-username "!@!.!", :html-url "http://-.-!", :av "http://-.-!", :header-image "http://-.-!"}), :content ""}))])
 (deftest masto-status-atom
   (testing "post.atom parses correctly"
     (with-open [inp (io/input-stream "test_data/post.atom")]
       (is (= (a/parse inp) [test-post]))))
   (testing "test post roundtrips"
-    (is (= (a/parse (a/render-post test-post)) [test-post]))))
+    (is (= (a/parse (a/render-post test-post)) [test-post]))
+    (doseq [gen-post gen-posts]
+      (is (= (a/parse (a/render-post gen-post)) [gen-post])))))
+
+(def ^java.util.regex.Pattern test-re #"[^\.]+@[^\.]+\..+")
+(defspec regex-roundtrip
+  1000
+  (prop/for-all [^CharSequence v (string-from-regex test-re)]
+    (.matches (.matcher test-re v))))
 
 (defspec atom-roundtrip
   10000
@@ -61,5 +74,4 @@
     (let [post (assoc post :author (c/map->Account (:author post)))
           post (c/map->Post post)
           post (c/expand post)]
-      (prn post)
-      (= (a/parse (a/render-post post)) post))))
+      (= (a/parse (a/render-post post)) [post]))))
