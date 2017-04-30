@@ -136,11 +136,12 @@
 (defn xp
   [^String query]
   (if *is-masto-ns*
-    (let [res (get (:compiled-xpaths @xpath-context) query)]
+    (let [ctx @xpath-context
+          res (get (:compiled-xpaths ctx) query)]
       (if res
         res
-        (let [res (.compile ^XPath (:xpath-compiler @xpath-context)  query)]
-          (.put ^java.util.Map (:compiled-xpaths @xpath-context) query res)
+        (let [res (.compile ^XPath (:xpath-compiler ctx)  query)]
+          (.put ^java.util.Map (:compiled-xpaths ctx) query res)
           res)))
     query))
 
@@ -158,8 +159,11 @@
 (defn text-getter
   [node]
   (fn [q]
-    (let [q (xp q)]
-      ($x:text? q node))))
+    (let [q (xp q)
+          ^String res ($x:text? q node)]
+      (if (and res (not= (.indexOf res "<") -1))
+        (strip-html res)
+        res))))
 
 (defn apply-attributes!
   [^Element tag attrs]

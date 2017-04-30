@@ -175,6 +175,14 @@
   (atom-id-for [a]
     (hash-string (:html-url a))))
 
+(sp/def ::href url?)
+(sp/def ::type (matches-re? #"\w+\/\w+"))
+(sp/def ::length integer?)
+
+(specrec Attachment
+  :req [::href]
+  :opt [::type ::length])
+
 (sp/def ::author ::Account)
 (sp/def ::published epoch-int?)
 (sp/def ::updated epoch-int?)
@@ -185,6 +193,7 @@
 (sp/def ::in-reply-to (sp/coll-of url?))
 (sp/def ::atom-url url?)
 (sp/def ::mentioned-user-urls (sp/coll-of url?))
+(sp/def ::attachments (sp/coll-of ::Attachment))
 
 (specrec Post
   :req [::published ::author ::content]
@@ -193,6 +202,7 @@
         ::title #(format "new status by %s" (:username (:author %)))
         ::summary #(clip-string 140 (:content %))
         ::scope (returns "public") 
+        ::attachments (returns [])
         ::mentioned-user-urls (returns [])
         ::in-reply-to (returns [])])
 

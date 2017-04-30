@@ -46,6 +46,13 @@
       (c/->AtomRef (:ref m) (:href m))
       (:href m))))
 
+(defn parse-attachment-tag
+  [attachment]
+  (c/map->Attachment {
+    :href (:href attachment)
+    :type (:type attachment)
+    :length (number (:length attachment))}))
+
 (defn parse-entry
   [entry]
   (with-masto-ns
@@ -59,6 +66,7 @@
         :summary (text "./atom:summary")
         :content (strip-html (text "./atom:content"))
         :scope (text "./mtdn:scope")
+        :attachments (map parse-attachment-tag ($x:attrs* (xp "./atom:link[@rel='enclosure']") entry))
         :mentioned-user-urls (map map->ref (get-objects entry "mentioned" :person))
         :in-reply-to (map :href ($x:attrs* (xp "./thr:in-reply-to") entry))
         :html-url (map->ref ($x:attrs? (xp "./atom:link[@rel='alternate' and @type='text/html']") entry))
@@ -107,6 +115,12 @@
       [:activity:verb (:post verbs)]
       [:atom:summary (:summary post)]
       [:atom:content {:type "html"} (format "<pre>%s</pre>" (:content post))]
+      (for [a (:attachments post)]
+        [:atom:link {
+          :rel "enclosure"
+          :href (:href a)
+          :type (:type a)
+          :length (:length a)}])
       (for [u (:mentioned-user-urls post)]
         [:atom:link {
           :rel "mentioned"

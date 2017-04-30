@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:poco="http://portablecontacts.net/spec/1.0" xmlns:media="http://purl.org/syndication/atommedia" xmlns:ostatus="http://ostatus.org/schema/1.0" xmlns:mastodon="http://mastodon.social/schema/1.0">
+  <id>tag:cybre.space,2017-04-30:objectId=718348:objectType=Status</id>
+  <published>2017-04-30T04:29:02Z</published>
+  <updated>2017-04-30T04:29:02Z</updated>
+  <title>New status by lain_iwakura</title>
+  <author>
+    <id>https://cybre.space/users/lain_iwakura</id>
+    <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+    <uri>https://cybre.space/users/lain_iwakura</uri>
+    <name>lain_iwakura</name>
+    <email>lain_iwakura@cybre.space</email>
+    <summary type="html">&lt;p&gt;ａ̭̖̩ｎ̰̫ｄ̵̟　͎̼̖̪̜̲ｙ̶̪̰̤̝͖ｏ̙̳ｕ͎̮͔̖̳̟　̤ｄ̰̲̩͓͘ｏ͇̦͈ｎ̷̘͓＇̱̰̜̖̳ｔ̪̥　̝̱͖̹͍͚ｓ͙͢ｅ̙̹ｅ̹̣͠ｍ̥͉̬̲̹　̰̮̮̺͟ｔｏ͡　҉̺͇̺ｕ̷̱͍͖̳̲ｎ̻̦̻̜͇ｄ̷͖̬ｅ̣ｒｓ̘̖̣̼ｔ̖͚͔̬̪ａ̠̥͍ｎ̧͓̤ｄ̟͍͓̲̞͚͞&lt;/p&gt;</summary>
+    <link rel="alternate" type="text/html" href="https://cybre.space/@lain_iwakura"/>
+    <link rel="avatar" type="image/png" media:width="120" media:height="120" href="https://cybre.s3-us-west-2.amazonaws.com/accounts/avatars/000/009/680/original/f6e4d90b4c640bb2.png"/>
+    <link rel="header" type="image/jpeg" media:width="700" media:height="335" href="https://cybre.s3-us-west-2.amazonaws.com/accounts/headers/000/009/680/original/e43c8db3df8b573f.jpg"/>
+    <poco:preferredUsername>lain_iwakura</poco:preferredUsername>
+    <poco:displayName>Lain Iwakura (岩倉 玲音)</poco:displayName>
+    <poco:note>ａ̭̖̩ｎ̰̫ｄ̵̟　͎̼̖̪̜̲ｙ̶̪̰̤̝͖ｏ̙̳ｕ͎̮͔̖̳̟　̤ｄ̰̲̩͓͘ｏ͇̦͈ｎ̷̘͓＇̱̰̜̖̳ｔ̪̥　̝̱͖̹͍͚ｓ͙͢ｅ̙̹ｅ̹̣͠ｍ̥͉̬̲̹　̰̮̮̺͟ｔｏ͡　҉̺͇̺ｕ̷̱͍͖̳̲ｎ̻̦̻̜͇ｄ̷͖̬ｅ̣ｒｓ̘̖̣̼ｔ̖͚͔̬̪ａ̠̥͍ｎ̧͓̤ｄ̟͍͓̲̞͚͞</poco:note>
+    <mastodon:scope>public</mastodon:scope>
+  </author>
+  <activity:object-type>http://activitystrea.ms/schema/1.0/note</activity:object-type>
+  <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+  <content type="html" xml:lang="en">&lt;p&gt;&lt;a href="https://cybre.space/media/G6EraV6UeheFA3DXsKE" rel="nofollow noopener" target="_blank"&gt;&lt;span class="invisible"&gt;https://&lt;/span&gt;&lt;span class="ellipsis"&gt;cybre.space/media/G6EraV6UeheF&lt;/span&gt;&lt;span class="invisible"&gt;A3DXsKE&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;</content>
+  <link rel="mentioned" ostatus:object-type="http://activitystrea.ms/schema/1.0/collection" href="http://activityschema.org/collection/public"/>
+  <link rel="enclosure" type="image/jpeg" length="281469" href="https://cybre.s3-us-west-2.amazonaws.com/media_attachments/files/000/055/229/original/a8fc99f1994eb86b.jpg"/>
+  <mastodon:scope>public</mastodon:scope>
+  <link rel="alternate" type="text/html" href="https://cybre.space/users/lain_iwakura/updates/30007"/>
+  <link rel="self" type="application/atom+xml" href="https://cybre.space/users/lain_iwakura/updates/30007.atom"/>
+</entry>
