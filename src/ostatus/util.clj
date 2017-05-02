@@ -105,16 +105,22 @@
         [uri]
         (get inverse uri)))))
 
+(defn maybe-set-prop!
+  [k v]
+  (if (nil? (System/getProperty k))
+    (System/setProperty k v)))
+
 ;; workaround for http://stackoverflow.com/questions/6340802/java-xpath-apache-jaxp-implementation-performance
-(System/setProperty "org.apache.xml.dtm.DTMManager" "org.apache.xml.dtm.ref.DTMManagerDefault")
-(System/setProperty "com.sun.org.apache.xml.internal.dtm.DTMManager" "com.sun.org.apache.xml.internal.dtm.ref.DTMManagerDefault")
+(maybe-set-prop! "org.apache.xml.dtm.DTMManager" "org.apache.xml.dtm.ref.DTMManagerDefault")
+(maybe-set-prop! "com.sun.org.apache.xml.internal.dtm.DTMManager" "com.sun.org.apache.xml.internal.dtm.ref.DTMManagerDefault")
 
 (defrecord XpathContext [
   ^javax.xml.xpath.XPathFactory xpath-factory
   ^XPath xpath-compiler
   ^java.util.Map compiled-xpaths])
 
-(def xpath-context
+(defn xpath-context
+  [namespaces]
   (thread-local
     (let [factory (org.apache.xpath.jaxp.XPathFactoryImpl.)
           ^XPath compiler (.newXPath factory)]
@@ -122,22 +128,30 @@
         (ns-context namespaces))
       (->XpathContext factory compiler (java.util.HashMap.)))))
 
+(def masto-context (xpath-context namespaces))
+
+(def ^{:dynamic true} *current-xpath-context* nil)
+(defmacro with-xpath-ns
+  [context & bodies]
+  `(binding [clj-xpath.core/*namespace-aware* true
+             *current-xpath-context* (deref ~context)
+             clj-xpath.core/*xpath-compiler* (:xpath-compiler *current-xpath-context*)]
+    ~@bodies))
+
 (def ^{:dynamic true} *is-masto-ns* false)
 (defmacro with-masto-ns
   [& bodies]
-  `(binding [clj-xpath.core/*namespace-aware* true
-             *is-masto-ns* true
-             clj-xpath.core/*xpath-compiler* (:xpath-compiler @xpath-context)]
-    ~@bodies))
+  `(binding [*is-masto-ns* true]
+    (with-xpath-ns masto-context ~@bodies)))
 
 (defn xp
   [^String query]
-  (if *is-masto-ns*
-    (let [ctx @xpath-context
+  (if *current-xpath-context*
+    (let [ctx *current-xpath-context*
           res (get (:compiled-xpaths ctx) query)]
       (if res
         res
-        (let [res (.compile ^XPath (:xpath-compiler ctx)  query)]
+        (let [res (.compile ^XPath (:xpath-compiler ctx) query)]
           (.put ^java.util.Map (:compiled-xpaths ctx) query res)
           res)))
     query))
