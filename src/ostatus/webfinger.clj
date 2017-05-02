@@ -40,10 +40,10 @@
                                                             (assoc state :atom-url (:href link)))
           "salmon" (assoc state :salmon-url (:href link))
           "magic-public-key" (assoc state :salmon-public-key (sl/unpack-magic-key (:href link)))
-          "http://ostatus.org/schema/1.0/subscribe" (assoc state :subscribe-url-pattern (:pattern link))))
+          "http://ostatus.org/schema/1.0/subscribe" (assoc state :subscribe-url-pattern (:template link))
+          state))
       {
-          :uri (first (:aliases json-map))
-          :aliases (filter (fn [^String v] (not (re-matches alias-username-pattern v))) (rest (:aliases json-map)))
+          :aliases (filter (fn [^String v] (not (re-matches alias-username-pattern v))) (:aliases json-map))
           :username (or (username-from-aliases (:aliases json-map)) (username-from-acct-url (:subject json-map)))
           :qualified-username (decode-acct-url (:subject json-map))}
       (:links json-map))))
@@ -56,8 +56,8 @@
   [account]
   {
     :subject (format "acct:%s" (:qualified-username account))
-    :aliases (into [(:uri account) (format "username:%s" (:username account))]
-              (filter #(not (= % (:uri account))) (get account :aliases [])))
+    :aliases (into [(format "username:%s" (:username account))]
+              (get account :aliases []))
     :links (filter identity [
       {:rel "http://webfinger.net/rel/profile-page"
        :type "text/html"
@@ -74,7 +74,7 @@
          :href (sl/pack-magic-key-url (:salmon-public-key account))})
       (if (:subscribe-url-pattern account)
         {:rel "http://ostatus.org/schema/1.0/subscribe"
-         :pattern (:subscribe-url-pattern account)})])})
+         :template (:subscribe-url-pattern account)})])})
 
 (defn encode-webfinger-json
   [account]

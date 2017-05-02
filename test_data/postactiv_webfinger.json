@@ -1,0 +1,39 @@
+{"subject":"acct:verius@community.highlandarrow.com"
+,"aliases":["https://community.highlandarrow.com/user/500"
+            ,"https://community.highlandarrow.com/verius"
+            ,"https://community.highlandarrow.com/index.php/user/500"
+            ,"https://community.highlandarrow.com/index.php/verius"]
+,"links":[{"rel":"http://webfinger.net/rel/profile-page"
+        ,"type":"text/html"
+        ,"href":"https://community.highlandarrow.com/verius"}
+        ,{"rel":"http://gmpg.org/xfn/11"
+        ,"type":"text/html"
+        ,"href":"https://community.highlandarrow.com/verius"}
+        ,{"rel":"describedby"
+        ,"type":"application/rdf+xml"
+        ,"href":"https://community.highlandarrow.com/verius/foaf"}
+        ,{"rel":"http://apinamespace.org/atom"
+        ,"type":"application/atomsvc+xml"
+        ,"href":"https://community.highlandarrow.com/api/statusnet/app/service/verius.xml"}
+        ,{"rel":"http://apinamespace.org/twitter"
+        ,"href":"https://community.highlandarrow.com/api/"}
+        ,{"rel":"http://schemas.google.com/g/2010#updates-from"
+        ,"type":"application/atom+xml"
+        ,"href":"https://community.highlandarrow.com/api/statuses/user_timeline/500.atom"}
+        ,{"rel":"magic-public-key"
+        ,"href":"data:application/magic-public-key,RSA.3N90u0i8CPXLmlde4ezrn3m_g67K5oKJWCAz-10Ji5OPHuTerOCxaE3jkxuJ2PUm8bjLA1WMEkCF29U2FYNimpdF5apBGnLn1TseEbHe8Bs251tTLKtPr0IEw6pdOOS2KjFxhfY2zcadsLKYgsiExphGyWOVoOVQGzzguWvkiL8=.AQAB"}
+        ,{"rel":"diaspora-public-key"
+        ,"type":"RSA"
+        ,"href":"LS0tLS1CRUdJTiBSU0EgUFVCTElDIEtFWS0tLS0tDQpNSUdKQW9HQkFOemZkTHRJdkFqMXk1cFhYdUhzNjU5NXY0T3V5dWFDaVZnZ00vdGRDWXVUang3azNxemdzV2hODQo0NU1iaWRqMUp2RzR5d05WakJKQWhkdlZOaFdEWXBxWFJlV3FRUnB5NTlVN0hoR3gzdkFiTnVkYlV5eXJUNjlDDQpCTU9xWFRqa3Rpb3hjWVgyTnMzR25iQ3ltSUxJaE1hWVJzbGpsYURsVUJzODRMbHI1SWkvQWdNQkFBRT0NCi0tLS0tRU5EIFJTQSBQVUJMSUMgS0VZLS0tLS0="}
+        ,{"rel":"http://joindiaspora.com/guid"
+        ,"href":"42552fa31c3893d39a814ee71d6c6c191e99de6181b462c0e7079f4e4765f176"}
+        ,{"rel":"salmon"
+        ,"href":"https://community.highlandarrow.com/main/salmon/user/500"}
+        ,{"rel":"http://salmon-protocol.org/ns/salmon-replies"
+        ,"href":"https://community.highlandarrow.com/main/salmon/user/500"}
+        ,{"rel":"http://salmon-protocol.org/ns/salmon-mention"
+        ,"href":"https://community.highlandarrow.com/main/salmon/user/500"}
+        ,{"rel":"http://ostatus.org/schema/1.0/subscribe"
+        ,"template":"https://community.highlandarrow.com/main/ostatussub?profile={uri}"}
+        ,{"rel":"http://specs.openid.net/auth/2.0/provider"
+        ,"href":"https://community.highlandarrow.com/verius"}]}

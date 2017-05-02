@@ -30,7 +30,6 @@
   [:content]
   [:summary]
   [:attachments]
-  [:author :uri]
   [:author :username]
   [:author :qualified-username]
   [:author :bio]
@@ -68,7 +67,6 @@
       :summary "fediverse noodling again"
       :attachments []
       :author (c/map->Account {
-        :uri "https://icosahedron.website/users/parataxis"
         :username "parataxis"
         :qualified-username "parataxis@icosahedron.website"
         :bio "best mesothelioma lawyer dallas truck accident lawyer truck accident lawyer houston loisville car accident lawyer san diego water damage. @bobpoekert on twitter"
@@ -102,7 +100,6 @@
             :href "https://cybre.s3-us-west-2.amazonaws.com/media_attachments/files/000/055/229/original/a8fc99f1994eb86b.jpg"})]
        :author (c/map->Account
        {:username "lain_iwakura",
-        :uri "https://cybre.space/users/lain_iwakura",
         :qualified-username "lain_iwakura@cybre.space",
         :html-url "https://cybre.space/@lain_iwakura",
         :aliases []
@@ -130,10 +127,10 @@
        :in-reply-to []})))
 
 (def gen-posts [
-  (c/expand (c/map->Post {:published 0, :author (c/map->Account {:username "", :uri "http://-.-!", :qualified-username "!@!.!", :html-url "http://-.-!", :av "http://-.-!", :header-image "http://-.-!"}), :content ""}))
-  (c/map->Post {:published 0, :author (c/map->Account {:username "", :uri "http://-.-!", :qualified-username "!@!.!", :html-url "http://-.-!", :subscribe-url-pattern "http://-.-!", :av-type ""}), :content ""})
+  (c/expand (c/map->Post {:published 0, :author (c/map->Account {:username "", :qualified-username "!@!.!", :html-url "http://-.-!", :av "http://-.-!", :header-image "http://-.-!"}), :content ""}))
+  (c/map->Post {:published 0, :author (c/map->Account {:username "", :qualified-username "!@!.!", :html-url "http://-.-!", :subscribe-url-pattern "http://-.-!", :av-type ""}), :content ""})
 
-  #ostatus.types.Post{:published 0, :author #ostatus.types.Account{:username "", :uri "http://8.2'", :qualified-username "U@!.O", :html-url "http://N.5D", :av nil, :av-width nil, :av-height nil, :av-type nil, :header-image nil, :header-image-width nil, :header-image-height 0, :header-image-type nil, :salmon-url nil, :salmon-public-key nil, :atom-url nil, :subscribe-url-pattern nil, :display-name "", :aliases [], :bio "", :scope "public"}, :content "", :atom-url nil, :html-url "http://L.vZ", :updated 0, :title "", :summary "", :scope "public", :attachments (), :mentioned-user-urls ["https://5.m1" "http://m.ta" "http://t.fm" "http://E.ms" "http://s.Vu" "https://b.M!" "http://j.A'" "http://n.0T" "https://6.YH"], :in-reply-to ["https://5.VT" "http://d.dV" "https://K.5h" "https://Z.b+" "http://f.T8" "https://7.Rj" "http://H.u[" "http://D.-'" "https://0.r9" "http://Q.l@" "http://L.vx" "http://e.tk" "http://P.O+" "http://Q.aH" "https://8.EI" "http://X.92" "https://g.s~" "https://H.pR"]}])
+  #ostatus.types.Post{:published 0, :author #ostatus.types.Account{:username "", :qualified-username "U@!.O", :html-url "http://N.5D", :av nil, :av-width nil, :av-height nil, :av-type nil, :header-image nil, :header-image-width nil, :header-image-height 0, :header-image-type nil, :salmon-url nil, :salmon-public-key nil, :atom-url nil, :subscribe-url-pattern nil, :display-name "", :aliases [], :bio "", :scope "public"}, :content "", :atom-url nil, :html-url "http://L.vZ", :updated 0, :title "", :summary "", :scope "public", :attachments (), :mentioned-user-urls ["https://5.m1" "http://m.ta" "http://t.fm" "http://E.ms" "http://s.Vu" "https://b.M!" "http://j.A'" "http://n.0T" "https://6.YH"], :in-reply-to ["https://5.VT" "http://d.dV" "https://K.5h" "https://Z.b+" "http://f.T8" "https://7.Rj" "http://H.u[" "http://D.-'" "https://0.r9" "http://Q.l@" "http://L.vx" "http://e.tk" "http://P.O+" "http://Q.aH" "https://8.EI" "http://X.92" "https://g.s~" "https://H.pR"]}])
 
 (deftest masto-status-atom
   (testing "post.atom parses correctly"
@@ -153,21 +150,35 @@
 (def test-webfinger-user
   (c/map->Account {
     :username "parataxis"
-    :uri "https://icosahedron.website/@parataxis"
     :qualified-username "parataxis@icosahedron.website"
     :html-url "https://icosahedron.website/@parataxis"
     :salmon-url "https://icosahedron.website/api/salmon/3206"
     :atom-url "https://icosahedron.website/users/parataxis.atom"
     :aliases ["https://icosahedron.website/@parataxis"]
+    :subscribe-url-pattern "https://icosahedron.website/authorize_follow?acct={uri}"
     :salmon-public-key (sl/unpack-magic-key "RSA.v00hvWwqNZwlH2UZNELc_vUsoHAEb7AozYw2d1scViaIHNeoDUNrL5ddSAsOTJhqiqfce987ysXFXsKhwfp1M2aln7vfBRxrOoL1qHqzVsbk2jmFjdSve-oINAmB6zTZviSEV_7FqCqX96Jsd_iIIgLIThU4BDvLYRpPIgyTjwSILS9noBxpBHURNNl_d_F__rT3v18tmsLzV8mSoqyD3I9dWGsa8b66QMPFXRmStldmT8DwOEGYZdoqpri6YYT9qpdoGHzrTSeKj4joB3TrR-xdncqwhDIA955hWcAMQZ5KOdAiTrGQDRRbhIFbxkuYnzCLRC4tMHnDj59FhYnIZw==.AQAB")}))
+
+(def test-postactiv-webfinger-user
+  (c/map->Account {
+    :username "verius"
+    :aliases ["https://community.highlandarrow.com/user/500"
+              "https://community.highlandarrow.com/verius"
+              "https://community.highlandarrow.com/index.php/user/500"
+              "https://community.highlandarrow.com/index.php/verius"]
+    :qualified-username "verius@community.highlandarrow.com"
+    :html-url "https://community.highlandarrow.com/verius"
+    :salmon-url "https://community.highlandarrow.com/main/salmon/user/500"
+    :atom-url "https://community.highlandarrow.com/api/statuses/user_timeline/500.atom"
+    :subscribe-url-pattern "https://community.highlandarrow.com/main/ostatussub?profile={uri}"
+    :salmon-public-key (sl/unpack-magic-key "RSA.3N90u0i8CPXLmlde4ezrn3m_g67K5oKJWCAz-10Ji5OPHuTerOCxaE3jkxuJ2PUm8bjLA1WMEkCF29U2FYNimpdF5apBGnLn1TseEbHe8Bs251tTLKtPr0IEw6pdOOS2KjFxhfY2zcadsLKYgsiExphGyWOVoOVQGzzguWvkiL8=.AQAB")}))
 
 (def webfinger-test-keys [
     :username 
-    :uri 
     :qualified-username 
     :html-url 
     :salmon-url 
     :salmon-public-key
+    :subscribe-url-pattern
     :atom-url])
 
 (defn webfinger=
@@ -176,7 +187,8 @@
 
 (deftest webfinger-json
   (testing "webfinger json parses correctly"
-    (is (webfinger= test-webfinger-user (wf/decode-webfinger-json (slurp "test_data/webfinger.json")))))
+    (is (webfinger= test-webfinger-user (wf/decode-webfinger-json (slurp "test_data/webfinger.json"))))
+    (is (webfinger= test-postactiv-webfinger-user (wf/decode-webfinger-json (slurp "test_data/postactiv_webfinger.json")))))
   (testing "webfinger json serializes correctly"
     (is (webfinger= (wf/encode-webfinger-json-map test-webfinger-user) (parse-string (slurp "test_data/webfinger.json") true)))))
 

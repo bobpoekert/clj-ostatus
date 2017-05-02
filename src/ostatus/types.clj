@@ -165,7 +165,6 @@
 
 (sp/def ::username string?)
 (sp/def ::id url?)
-(sp/def ::uri url?)
 (sp/def ::display-name string?)
 (sp/def ::qualified-username email?)
 (sp/def ::html-url url?)
@@ -186,7 +185,7 @@
 (sp/def ::subscribe-url-pattern url?)
 
 (specrec Account
-  :req [::username ::uri ::qualified-username ::html-url]
+  :req [::username ::qualified-username ::html-url]
   :opt [::av ::av-width ::av-height ::av-type
         ::header-image ::header-image-width ::header-image-height ::header-image-type
         ::salmon-url ::salmon-public-key

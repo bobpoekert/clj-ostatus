@@ -8,16 +8,17 @@
 (defn parse-author
   [author]
   (with-masto-ns
-    (let [av ($x:attrs? "./atom:link[@rel='avatar']" author)
-          header ($x:attrs? "./atom:link[@rel='header']" author)
+    (let [av ($x:attrs? (xp "./atom:link[@rel='avatar']") author)
+          header ($x:attrs? (xp "./atom:link[@rel='header']") author)
           text (text-getter author)
           attr (attr-getter author)]
       (c/map->Account {
-        :uri (text "./atom:uri")
         :username (text "./atom:name")
         :qualified-username (text "./atom:email")
         :bio (text "./atom:summary")
-        :html-url (attr "./atom:link[@rel='alternate' and @type='text/html']" :href)
+        :html-url (or
+                    (attr "./atom:link[@rel='alternate' and @type='text/html']" :href)
+                    (text "./atom:uri"))
         :av (if av (:href av))
         :av-width (if av (number (:media:width av)))
         :av-height (if av (number (:media:height av)))
@@ -75,7 +76,7 @@
   [inp]
   (with-masto-ns
     (let [inp (read-doc inp)]
-      (map parse-entry ($x:node* "./atom:entry" inp)))))
+      (map parse-entry ($x:node* (xp "./atom:entry") inp)))))
 
 (defn author-tree
   [account]
@@ -83,7 +84,7 @@
     [:atom:author
       [:atom:id (c/atom-id-for account)]
       [:activity:object-type (:person types)]
-      [:atom:uri (:uri account)]
+      [:atom:uri (:html-url account)]
       [:atom:name (:username account)]
       [:atom:email (:qualified-username account)]
       [:atom:summary (:bio account)]
