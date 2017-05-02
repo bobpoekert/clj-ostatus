@@ -1,8 +1,7 @@
 (ns ostatus.atom
   (:require [clj-xpath.core :refer :all]
             [ostatus.types :as c]
-            [ostatus.util :refer :all]
-            [hiccup.core :as h]))
+            [ostatus.util :refer :all]))
 
 (set! *warn-on-reflection* true)
 

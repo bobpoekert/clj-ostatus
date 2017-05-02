@@ -9,10 +9,7 @@
            [javax.xml.xpath XPath]
            [java.io StringWriter]
            ThreadLocalThing)
-  (:require [clj-xpath.core :refer :all]
-            [hiccup.core :as hc]
-            [hiccup.compiler :as hcc]
-            [hiccup.util :as hu]))
+  (:require [clj-xpath.core :refer :all]))
 
 (defn make-thread-local
   [generator]

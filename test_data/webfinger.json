@@ -1,1 +1,14 @@
-{"subject":"acct:parataxis@icosahedron.website","aliases":["https://icosahedron.website/@parataxis"],"links":[{"rel":"http://webfinger.net/rel/profile-page","type":"text/html","href":"https://icosahedron.website/@parataxis"},{"rel":"http://schemas.google.com/g/2010#updates-from","type":"application/atom+xml","href":"https://icosahedron.website/users/parataxis.atom"},{"rel":"salmon","href":"https://icosahedron.website/api/salmon/3206"},{"rel":"magic-public-key","href":"data:application/magic-public-key,RSA.v00hvWwqNZwlH2UZNELc_vUsoHAEb7AozYw2d1scViaIHNeoDUNrL5ddSAsOTJhqiqfce987ysXFXsKhwfp1M2aln7vfBRxrOoL1qHqzVsbk2jmFjdSve-oINAmB6zTZviSEV_7FqCqX96Jsd_iIIgLIThU4BDvLYRpPIgyTjwSILS9noBxpBHURNNl_d_F__rT3v18tmsLzV8mSoqyD3I9dWGsa8b66QMPFXRmStldmT8DwOEGYZdoqpri6YYT9qpdoGHzrTSeKj4joB3TrR-xdncqwhDIA955hWcAMQZ5KOdAiTrGQDRRbhIFbxkuYnzCLRC4tMHnDj59FhYnIZw==.AQAB"},{"rel":"http://ostatus.org/schema/1.0/subscribe","template":"https://icosahedron.website/authorize_follow?acct={uri}"}]}
+{"subject":"acct:parataxis@icosahedron.website"
+,"aliases":["https://icosahedron.website/@parataxis"]
+,"links":[{"rel":"http://webfinger.net/rel/profile-page"
+            ,"type":"text/html"
+            ,"href":"https://icosahedron.website/@parataxis"}
+            ,{"rel":"http://schemas.google.com/g/2010#updates-from"
+             ,"type":"application/atom+xml"
+             ,"href":"https://icosahedron.website/users/parataxis.atom"}
+            ,{"rel":"salmon"
+             ,"href":"https://icosahedron.website/api/salmon/3206"}
+            ,{"rel":"magic-public-key"
+             ,"href":"data:application/magic-public-key,RSA.v00hvWwqNZwlH2UZNELc_vUsoHAEb7AozYw2d1scViaIHNeoDUNrL5ddSAsOTJhqiqfce987ysXFXsKhwfp1M2aln7vfBRxrOoL1qHqzVsbk2jmFjdSve-oINAmB6zTZviSEV_7FqCqX96Jsd_iIIgLIThU4BDvLYRpPIgyTjwSILS9noBxpBHURNNl_d_F__rT3v18tmsLzV8mSoqyD3I9dWGsa8b66QMPFXRmStldmT8DwOEGYZdoqpri6YYT9qpdoGHzrTSeKj4joB3TrR-xdncqwhDIA955hWcAMQZ5KOdAiTrGQDRRbhIFbxkuYnzCLRC4tMHnDj59FhYnIZw==.AQAB"}
+            ,{"rel":"http://ostatus.org/schema/1.0/subscribe"
+                ,"template":"https://icosahedron.website/authorize_follow?acct={uri}"}]}

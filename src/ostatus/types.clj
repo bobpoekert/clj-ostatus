@@ -1,4 +1,7 @@
 (ns ostatus.types
+  (:import [javax.crypto SecretKey SecretKeyFactory]
+           [javax.crypto.spec PBEKeySpec]
+           [java.security SecureRandom KeyPairGenerator KeyPair PublicKey PrivateKey])
   (:require [clojure.spec :as sp]
            [clojure.string :as s]
            [ostatus.util :refer [hash-string]]
@@ -6,7 +9,6 @@
            [com.gfredericks.test.chuck.generators :refer [string-from-regex]]))
 
 (set! *warn-on-reflection* true)
-(sp/check-asserts true)
 
 (defprotocol Expand
   "Takes a map that has optional keys and generates default values from the required keys"
@@ -144,6 +146,23 @@
 (def email? (matches-re? #"[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+@[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+\.[\w\-\._~:/?#\[\]@!\$&'\(\)\*\+,;=.]+"))
 (def epoch-int? (sp/with-gen integer? #(gen/large-integer* {:min -32513966177 :max 32513966177})))
 
+(defn ^KeyPair rsa-keypair
+  []
+  (let [gen (KeyPairGenerator/getInstance "RSA")]
+    (.initialize gen 2048)
+    (.genKeyPair gen)))
+
+(def test-keypair
+  (delay (rsa-keypair)))
+
+(def ^{:dynamic true} *generate-test-keys* false)
+(def public-key?
+  (sp/with-gen
+    #(or (nil? %) (isa? PublicKey %))
+    #(gen/return (if *generate-test-keys* 
+                  (.getPublic ^KeyPair @test-keypair)
+                  nil))))
+
 (sp/def ::username string?)
 (sp/def ::id url?)
 (sp/def ::uri url?)
@@ -160,11 +179,20 @@
 (sp/def ::header-image-type string?)
 (sp/def ::bio string?)
 (sp/def ::scope (one-of? ["public" "private"]))
+(sp/def ::salmon-url url?)
+(sp/def ::salmon-public-key public-key?)
+(sp/def ::aliases (sp/coll-of url?))
+(sp/def ::atom-url url?)
+(sp/def ::subscribe-url-pattern url?)
 
 (specrec Account
-  :req [::username ::uri ::qualified-username ::html-url ::av ::header-image]
-  :opt [::av-width ::av-height ::header-image-width ::header-image-height ::av-type ::header-image-type]
+  :req [::username ::uri ::qualified-username ::html-url]
+  :opt [::av ::av-width ::av-height ::av-type
+        ::header-image ::header-image-width ::header-image-height ::header-image-type
+        ::salmon-url ::salmon-public-key
+        ::atom-url ::subscribe-url-pattern]
   :xp [::display-name :username
+       ::aliases (returns [])
        ::bio (returns "")
        ::scope (returns "public")])
 
