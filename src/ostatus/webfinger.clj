@@ -11,10 +11,10 @@
       (if (.matches m)
         (.group m 1)))))
 
-(def ^Pattern acct-url-pattern #"(?:acct:)?(.+)")
+(def ^Pattern acct-url-pattern #"(?:acct:)?(.+@.+)")
 (defn decode-acct-url
-  [^String url]
-  (re-group acct-url-pattern url))
+  [urls]
+  (first (filter identity (map #(re-group acct-url-pattern %) urls))))
 
 (def ^Pattern acct-url-username-pattern #"(?:acct:)?(.+?)@.*?")
 (defn username-from-acct-url
@@ -40,23 +40,24 @@
 
 (defn decode-webfinger-json-map
   [json-map]
-  (c/map-> Account
-    (reduce
-      (fn [state link]
-        (case (:rel link)
-          "http://webfinger.net/rel/profile-page" (if (= (:type link) "text/html") (assoc state :html-url (:href link)) state)
-          "http://schemas.google.com/g/2010#updates-from" (if (= (:type link) "application/atom+xml")
-                                                            (assoc state :atom-url (:href link)))
-          "salmon" (assoc state :salmon-url (:href link))
-          "magic-public-key" (assoc state :salmon-public-key (sl/unpack-magic-key (:href link)))
-          "describedby" (if (= (:type link) "application/rdf+xml") (assoc state :foaf-url (:href link)) state)
-          "http://ostatus.org/schema/1.0/subscribe" (assoc state :subscribe-url-pattern (:template link))
-          state))
-      {
-          :aliases (filter (fn [^String v] (not (re-matches alias-username-pattern v))) (:aliases json-map))
-          :username (or (username-from-aliases (:aliases json-map)) (username-from-acct-url (:subject json-map)))
-          :qualified-username (decode-acct-url (:subject json-map))}
-      (:links json-map))))
+  (let [qualified-username (decode-acct-url (cons (:subject json-map) (:aliases json-map)))]
+    (c/map-> Account
+      (reduce
+        (fn [state link]
+          (case (:rel link)
+            "http://webfinger.net/rel/profile-page" (if (= (:type link) "text/html") (assoc state :html-url (:href link)) state)
+            "http://schemas.google.com/g/2010#updates-from" (if (= (:type link) "application/atom+xml")
+                                                              (assoc state :atom-url (:href link)))
+            "salmon" (assoc state :salmon-url (:href link))
+            "magic-public-key" (assoc state :salmon-public-key (sl/unpack-magic-key (:href link)))
+            "describedby" (if (= (:type link) "application/rdf+xml") (assoc state :foaf-url (:href link)) state)
+            "http://ostatus.org/schema/1.0/subscribe" (assoc state :subscribe-url-pattern (:template link))
+            state))
+        {
+            :aliases (filter (fn [^String v] (not (re-matches alias-username-pattern v))) (:aliases json-map))
+            :username (or (username-from-aliases (:aliases json-map)) (username-from-acct-url qualified-username))
+            :qualified-username qualified-username}
+        (:links json-map)))))
 
 (defn decode-webfinger-json
   [blob]

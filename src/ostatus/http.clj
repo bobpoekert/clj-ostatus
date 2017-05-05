@@ -59,9 +59,9 @@
                     (assoc post :author account)
                     post))})))))
 
-(defn account-from-url
+(defn get-account-from-url
   [url]
   (let [webfinger-url (format "https://%s/.well-known/webfinger?resource=%s" (host url) url)]
     (d/let-flow [webfinger-response (req :get webfinger-url)]
       (if (success? webfinger-response)
-        (wf/decode-webfinger-json (bs/to-string webfinger-response))))))
+        (wf/decode-webfinger-json (bs/to-string (:body webfinger-response)))))))

@@ -1,8 +1,7 @@
-(defproject ostatus "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+(defproject ostatus "0.1"
+  :description "An ostatus client"
+  :url "https://github.com/bobpoekert/clj-ostatus"
+  :license {:name "MIT License"}
   :profiles {:dev {:dependencies [[diff-eq "0.2.3"]
                                   [zweikopf "1.0.2"]]
                    :injections [(require 'diff-eq.core)
