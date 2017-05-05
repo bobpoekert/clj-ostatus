@@ -3,7 +3,8 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :profiles {:dev {:dependencies [[diff-eq "0.2.3"]]
+  :profiles {:dev {:dependencies [[diff-eq "0.2.3"]
+                                  [zweikopf "1.0.2"]]
                    :injections [(require 'diff-eq.core)
                                 (diff-eq.core/diff!)]}}
   :java-source-paths ["src/java"]
@@ -14,4 +15,5 @@
                   [org.jsoup/jsoup "1.10.2"]
                   [cheshire "5.7.1"]
                   [compojure "1.5.1"]
-                  [manifold "0.1.6"]])
+                  [manifold "0.1.6"]
+                  [aleph "0.4.3"]])

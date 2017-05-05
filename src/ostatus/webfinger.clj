@@ -29,17 +29,27 @@
       (for [a aliases]
         (re-group alias-username-pattern a)))))
 
+(def ^Pattern acct-url-parts-pattern #"(?:acct:)?(.+?)@(.*)")
+(defn webfinger-url
+  [qualified-username]
+  (let [m (.matcher acct-url-parts-pattern qualified-username)
+        _ (.matches m)
+        username (.group m 1)
+        host (.group m 2)]
+    (format "https://%s/.well-known/webfinger?resource=acct:%s@%s" host username host)))
+
 (defn decode-webfinger-json-map
   [json-map]
-  (c/map->Account
+  (c/map-> Account
     (reduce
       (fn [state link]
         (case (:rel link)
-          "http://webfinger.net/rel/profile-page" (if (= (:type link) "text/html") (assoc state :html-url (:href link)))
+          "http://webfinger.net/rel/profile-page" (if (= (:type link) "text/html") (assoc state :html-url (:href link)) state)
           "http://schemas.google.com/g/2010#updates-from" (if (= (:type link) "application/atom+xml")
                                                             (assoc state :atom-url (:href link)))
           "salmon" (assoc state :salmon-url (:href link))
           "magic-public-key" (assoc state :salmon-public-key (sl/unpack-magic-key (:href link)))
+          "describedby" (if (= (:type link) "application/rdf+xml") (assoc state :foaf-url (:href link)) state)
           "http://ostatus.org/schema/1.0/subscribe" (assoc state :subscribe-url-pattern (:template link))
           state))
       {

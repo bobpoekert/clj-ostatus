@@ -13,14 +13,8 @@
             [clojure.test.check.properties :as prop]
             [clojure.test.check.clojure-test :refer [defspec]]
             [com.gfredericks.test.chuck.generators :refer [string-from-regex]]))
-(defn all?
-  [s]
-  (loop [[h & t] s]
-    (if h
-      (if t
-        (recur t)
-        true)
-      false)))
+
+(def all? u/all?)
 
 (def atom-keys [
   [:published]

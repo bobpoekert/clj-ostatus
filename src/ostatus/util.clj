@@ -11,6 +11,15 @@
            ThreadLocalThing)
   (:require [clj-xpath.core :refer :all]))
 
+(defn all?
+  [s]
+  (loop [[h & t] s]
+    (if h
+      (if t
+        (recur t)
+        true)
+      false)))
+
 (defn make-thread-local
   [generator]
   (ThreadLocalThing. ::initial-val generator))
@@ -36,12 +45,22 @@
 (defn from-iso-string
   [^String v]
   (if-not (nil? v)
-    (.getEpochSecond (Instant/parse v))))
+    (let [v (.replace v "+00:00" "Z")]
+      (.getEpochSecond (Instant/parse v)))))
 
 (defn strip-html
   [^String s]
   (if-not (nil? s)
     (.text (Jsoup/parse s))))
+
+(defn escape-html
+  [^String s]
+  (.. s
+    (replace "&"  "&amp;")
+    (replace "<"  "&lt;")
+    (replace ">"  "&gt;")
+    (replace "\"" "&quot;")
+    (replace "'" "&#39;")))
 
 (def namespaces {
   :atom        "http://www.w3.org/2005/Atom"

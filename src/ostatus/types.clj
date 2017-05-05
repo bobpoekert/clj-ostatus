@@ -20,6 +20,30 @@
   nil
   (expand [v] nil))
 
+(defprotocol Validate
+  "Takes a map and throws an exception if it's invalid in some way"
+  (validate! [v]))
+
+(extend-protocol Validate
+  Object
+  (validate! [v] nil)
+  nil
+  (validate! [v] nil))
+
+(def rec-keys (atom {}))
+
+(def types-ns *ns*)
+(defmacro map->
+  [typename m]
+  (let [constructor (if (map? m)
+                      (cons (symbol (str types-ns) (format "->%s" (name typename)))
+                        (for [k (get @rec-keys typename)]
+                          (get m k)))
+                      (list (symbol (str types-ns) (format "map->%s" (name typename))) m))]
+    `(let [v# ~constructor]
+      (validate! v#)
+      v#)))
+
 (defn strip-ns
   [kw]
   (keyword (name kw)))
@@ -50,6 +74,7 @@
                   (get specmap :req [])
                   (get specmap :opt [])
                   xp-keys)]
+    (swap! rec-keys (fn [v] (assoc v nom (map strip-ns specvals))))
     `(do
       ~@(map (fn [k v] `(def ~k ~v)) genkeys genvals)
       ;; HACK: make optional keys nilable
@@ -57,6 +82,9 @@
         `(sp/def ~k (sp/nilable (sp/get-spec ~k))))
       (sp/def ~specname (sp/keys ~@spec-spec))
       (defrecord ~(symbol (name nom)) ~(vec (map #(symbol (name %)) specvals))
+        Validate
+        (validate! [~argsym]
+          (sp/assert ~specname ~argsym))
         Expand
         (expand [~argsym]
           (let [~argsym ~(gen-expand-impl argsym nom (zipmap (map strip-ns xp-keys) genkeys) specvals)]
@@ -183,13 +211,14 @@
 (sp/def ::aliases (sp/coll-of url?))
 (sp/def ::atom-url url?)
 (sp/def ::subscribe-url-pattern url?)
+(sp/def ::hub-url url?)
 
 (specrec Account
   :req [::username ::qualified-username ::html-url]
   :opt [::av ::av-width ::av-height ::av-type
         ::header-image ::header-image-width ::header-image-height ::header-image-type
         ::salmon-url ::salmon-public-key
-        ::atom-url ::subscribe-url-pattern]
+        ::atom-url ::subscribe-url-pattern ::hub-url ::foaf-url]
   :xp [::display-name :username
        ::aliases (returns [])
        ::bio (returns "")
@@ -239,3 +268,8 @@
   AtomIdFor
   (atom-id-for [p]
     (hash-string [(atom-id-for (:author p)) (:published p) (:content p)])))
+
+(sp/def ::account ::Account)
+(sp/def ::posts (sp/coll-of ::Post))
+(specrec Feed
+  :req [::account ::posts])

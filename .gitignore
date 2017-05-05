@@ -9,3 +9,5 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
+test_data/rb_vendor/
+test_data/vendor/
