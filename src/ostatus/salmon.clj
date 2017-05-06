@@ -1,7 +1,7 @@
 (ns ostatus.salmon
   (:import [javax.crypto SecretKey SecretKeyFactory]
            [javax.crypto.spec PBEKeySpec]
-           [java.security SecureRandom KeyPairGenerator KeyPair PublicKey PrivateKey KeyFactory MessageDigest]
+           [java.security SecureRandom KeyPairGenerator KeyPair PublicKey PrivateKey KeyFactory MessageDigest Signature]
            [java.security.interfaces RSAPublicKey]
            [java.security.spec RSAPublicKeySpec]
            [java.math BigInteger]
@@ -27,7 +27,11 @@
 
 (defn ^String encode-string
   [^String inp]
-  (.encodeToString bencoder (.toByteArray inp)))
+  (.encodeToString bencoder (.getBytes inp "UTF-8")))
+
+(defn decode-string
+  [^String inp]
+  (.decode bdecoder inp))
 
 (defn sha256
   [^String m]

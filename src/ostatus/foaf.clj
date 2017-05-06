@@ -8,7 +8,7 @@
     :geo "http://www.w3.org/2003/01/geo/wgs84_pos#"
     :bio "http://purl.org/vocab/bio/0.1/"
     :sioc "http://rdfs.org/sioc/ns#"
-    :foaf "http://.com/foaf/0.1/"})
+    :foaf "http://xmlns.com/foaf/0.1/"})
 
 (def foaf-context (xpath-context foaf-namespaces))
 
@@ -16,23 +16,42 @@
   [agent-tag]
   (with-xpath-ns foaf-context
     (let [text (text-getter agent-tag)
-          attr (attr-getter agent-tag)]
+          attr (attr-getter agent-tag)
+          get-resources (fn [query]
+                          (->>
+                            ($x:attrs* (xp query) agent-tag)
+                            (map :rdf:resource)
+                            (filter identity)
+                            (doall)))]
       {:id (:rdf:about (attrs agent-tag))
-       :username (text "./name")
-       :html-url (attr "./homepage" :rdf:resource)
-       :av (:rdf:about (first ($x:attrs* (xp "./img/Image") agent-tag)))
+       :username (or (text "./foaf:name") (text "./foaf:account/foaf:OnlineAccount/foaf:accountName"))
+       :html-url (or (attr "./foaf:homepage" :rdf:resource)
+                     (attr "./foaf:account/foaf:OnlineAccount/foaf:accountProfilePage" :rdf:resource))
+       :av (:rdf:about (first ($x:attrs* (xp "./foaf:img/foaf:Image") agent-tag)))
        :bio (text "./bio:olb")
-       :following (map :rdf:resource ($x:attrs* (xp "./account/OnlineAccount/soic:follows") agent-tag))
-       :followers (map :rdf:resource ($x:attrs* (xp "./knows") agent-tag))})))
-    
+       :following (get-resources "./foaf:account/foaf:OnlineAccount/sioc:follows")
+       :followers (get-resources "./foaf:knows")})))
+   
+(defn argmax
+  [k s]
+  (loop [m Integer/MIN_VALUE
+         mk nil
+         [h & t] s]
+    (if h
+      (let [m2 (k h)]
+        (if (> m2 m)
+          (recur m2 h t)
+          (recur m mk t)))
+      mk)))
+
 (defn parse-foaf
   [blob]
   (with-xpath-ns foaf-context
     (let [tree (read-doc blob)
-          agents (map parse-agent ($x:node* (xp "//Agent") tree))
-          agent-index (apply hash-map (for [a agents] [(:id a) a]))
-          resolved-agents (for [a agents]
-                            (-> a
-                              (assoc :followers (map #(get agent-index %) (:followers a)))
-                              (assoc :following (map #(get agent-index %) (:following a)))))]
-      resolved-agents)))
+          attr (attr-getter tree)
+          agents (map parse-agent ($x:node* (xp "/rdf:RDF/foaf:Agent") tree))
+          agent-index (zipmap (map :id agents) agents) 
+          target-agent (argmax #(+ (count (:followers %)) (count (:following %))) agents)]
+      (-> target-agent
+        (assoc :following (map #(get agent-index %) (:following target-agent)))
+        (assoc :followers (map #(get agent-index %) (:followers target-agent)))))))

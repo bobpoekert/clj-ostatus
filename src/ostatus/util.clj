@@ -100,7 +100,11 @@
 
 (defn number
   [v]
-  (if v (Long/decode v)))
+  (if v 
+    (try
+      (Long/decode v)
+      (catch NumberFormatException e
+        nil))))
 
 (defn normalize-url
   [^String url]

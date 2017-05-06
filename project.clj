@@ -15,4 +15,5 @@
                   [cheshire "5.7.1"]
                   [compojure "1.5.1"]
                   [manifold "0.1.6"]
+                  [tulos/manifail "0.4.0"]
                   [aleph "0.4.3"]])
