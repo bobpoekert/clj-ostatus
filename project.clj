@@ -12,6 +12,7 @@
                   [com.gfredericks/test.chuck "0.2.7"]
                   [com.github.kyleburton/clj-xpath "1.4.11"]
                   [org.jsoup/jsoup "1.10.2"]
+                  [clojurewerkz/urly "1.0.0"]
                   [cheshire "5.7.1"]
                   [compojure "1.5.1"]
                   [manifold "0.1.6"]

@@ -1,6 +1,6 @@
 (ns ostatus.http
-  (:import [java.net URL])
   (:require [clojure.java.io :as io]
+            [clojurewerkz.urly.core :as uu]
             [aleph.http :as h]
             [manifold.deferred :as d]
             [manifold.time :as mt]
@@ -12,9 +12,6 @@
             [ostatus.atom :as a]
             [ostatus.html :as html]))
 
-(defn host
-  [^String url]
-  (.getHost (URL. url)))
 
 (defn- default-req
   ([method url]
@@ -87,7 +84,7 @@
 
 (defn get-account-from-url
   [url]
-  (let [webfinger-url (format "https://%s/.well-known/webfinger?resource=%s" (host url) url)]
+  (let [webfinger-url (format "https://%s/.well-known/webfinger?resource=%s" (uu/host-of url) url)]
     (d/let-flow [webfinger-response (req :get webfinger-url)]
       (if (success? webfinger-response)
         (wf/decode-webfinger-json (bs/to-string (:body webfinger-response)))

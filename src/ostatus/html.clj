@@ -2,6 +2,7 @@
   (:import [org.jsoup Jsoup]
            [org.jsoup.nodes Document Element])
   (:require [ostatus.util :as u]
+            [clojurewerkz.urly.core :as uu]
             [clojure.string :as s]))
 
 (set! *warn-on-reflection* true)
@@ -43,7 +44,8 @@
   
 (defn extract-mastodon-followers
   [follower-page follower-page-url]
-  (let [^Document tree (parse-html follower-page follower-page-url)]
+  (let [^Document tree (parse-html follower-page follower-page-url)
+        url (partial uu/resolve follower-page-url)]
     {:followers
       (for [item (.select tree ".account-grid-card")]
         (let [ta (partial tag-attr item)
@@ -54,8 +56,8 @@
               av (ta ".avatar img" "src")]
           {
             username-key username
-            :av (if (s/includes? av "missing.png") nil av) 
-            :html-url (ta ".name a" "href")
+            :av (if (s/includes? av "missing.png") nil (url av))
+            :html-url (url (ta ".name a" "href"))
             :bio (tx ".note")
             :display-name (tx ".display_name")}))
     :page-count (->>

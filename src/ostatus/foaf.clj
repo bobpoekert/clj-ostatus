@@ -1,6 +1,7 @@
 (ns ostatus.foaf
   (:require [ostatus.util :refer :all]
-            [clj-xpath.core :refer :all]))
+            [clj-xpath.core :refer :all]
+            [clojurewerkz.urly.core :as uu]))
 
 (def foaf-namespaces {
     :rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -22,8 +23,8 @@
                             ($x:attrs* (xp query) agent-tag)
                             (map :rdf:resource)
                             (filter identity)
-                            (doall)))]
-      {:id (:rdf:about (attrs agent-tag))
+                            (map uu/without-fragment)))]
+      {:ids (cons (uu/without-fragment (:rdf:about (attrs agent-tag))) (get-resources ".//sioc:account_of"))
        :username (or (text "./foaf:name") (text "./foaf:account/foaf:OnlineAccount/foaf:accountName"))
        :html-url (or (attr "./foaf:homepage" :rdf:resource)
                      (attr "./foaf:account/foaf:OnlineAccount/foaf:accountProfilePage" :rdf:resource))
@@ -50,7 +51,7 @@
     (let [tree (read-doc blob)
           attr (attr-getter tree)
           agents (map parse-agent ($x:node* (xp "/rdf:RDF/foaf:Agent") tree))
-          agent-index (zipmap (map :id agents) agents) 
+          agent-index (reduce merge (for [a agents id (:ids a)] {id a}))
           target-agent (argmax #(+ (count (:followers %)) (count (:following %))) agents)]
       (-> target-agent
         (assoc :following (map #(get agent-index %) (:following target-agent)))
