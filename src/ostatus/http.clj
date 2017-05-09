@@ -33,11 +33,11 @@
 (defn retry-req
   [& args]
   (->
-    (ff/with-retries (ff/delay (ff/retries 5) 100 {:backoff-factor 2.0 :jitter-factor 0.5})
+    (ff/with-retries (ff/delay (ff/retries 10) 100 {:backoff-factor 2.0 :jitter-factor 0.5})
       (d/let-flow [response (apply req args)]
         (if (success? response)
           response
-          (ff/retry! response))))
+          (do (prn "retry") (ff/retry! response)))))
     (d/catch manifail.RetriesExceeded ff/unwrap)))
 
 (defn get-string
@@ -92,18 +92,33 @@
           (if (success? page-response)
             (html/extract-account (:body page-response) url)))))))
 
-(defn d-zip-sequential
-  ([s] (d-zip-sequential s 5))
-  ([s max-concurrent]
-    (d/loop [res []
-             s s]
-      (let [head (take max-concurrent s)
-            tail (drop max-concurrent s)]
-        (d/let-flow [slice (apply d/zip head)]
-          (let [res (into res slice)]
-            (if (seq tail)
-              (d/recur res tail)
-              res)))))))
+(defn d-pmap
+  "like pmap, but takes a seq of defereds and returns a defered"
+  ([s] (d-pmap identity s))
+  ([f s] (d-pmap f s 5))
+  ([f s max-concurrent]
+    (let [state (atom [[0 s] [0 0 {}]])
+          res (d/deferred)
+          got-result (fn got-result [pop-next idx result]
+                      (when-not (contains? (last (last @state)) idx)
+                        (swap! state
+                          (fn [[inp [started-count finished-count result-values]]]
+                            [inp [started-count (inc finished-count) (assoc result-values idx (f result))]]))
+                        (pop-next)))
+          pop-next (fn pop-next []
+                    (swap! state
+                      (fn [[[idx s] [start-count finished-count result]]]
+                        (if (seq s)
+                          (do 
+                            (d/chain (first s) (partial got-result pop-next idx))
+                            [[(inc idx) (rest s)] [(inc start-count) finished-count result]])
+                          (do
+                            (if (>= finished-count start-count) 
+                              (d/success! res (for [i (range finished-count)] (get result i))))
+                            [[idx s] [start-count finished-count result]])))))]
+      (dotimes [i max-concurrent]
+        (pop-next))
+      res)))
 
 (defn dedupe-followers
   [followers]
@@ -126,12 +141,13 @@
           (let [parsed (html/extract-mastodon-followers (:body first-page) url)
                 page-requests (for [page-id (range 2 (:page-count parsed))]
                                 (retry-req :get (format "%s?page=%d" url page-id)))]
-            (d/let-flow [responses (d-zip-sequential page-requests)]
-              (dedupe-followers
-                (reduce concat (:followers parsed)
-                  (for [response (filter success? responses)]
-                    (let [parsed (html/extract-mastodon-followers (:body response) url)]
-                      (:followers parsed))))))))))))
+            (d/let-flow [responses (d-pmap #(if (success? %)
+                                              (html/extract-mastodon-followers (:body %) url))
+                                            page-requests)]
+              (assoc parsed :followers 
+                (dedupe-followers
+                  (reduce concat (:followers parsed)
+                    (map :followers (filter identity responses))))))))))))
 
 (defn get-mastodon-following
   [username host]
@@ -141,5 +157,7 @@
   [username host]
   (d/let-flow [followers (get-mastodon-followers username host)
                following (get-mastodon-following username host)]
-    {:followers followers
-     :following following}))
+    (->
+      (merge followers following)
+      (assoc :followers (:followers followers))
+      (assoc :following (:followers following)))))

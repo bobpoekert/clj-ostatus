@@ -9,7 +9,8 @@
            [javax.xml.xpath XPath]
            [java.io StringWriter]
            ThreadLocalThing)
-  (:require [clj-xpath.core :refer :all]))
+  (:require [clj-xpath.core :refer :all]
+            [clojure.string :as s]))
 
 (defn all?
   [s]
@@ -101,10 +102,11 @@
 (defn number
   [v]
   (if v 
-    (try
-      (Long/decode v)
-      (catch NumberFormatException e
-        nil))))
+    (let [v (s/replace v #"[^0-9\.\-e]" "")]
+      (try
+        (Long/decode v)
+        (catch NumberFormatException e
+          nil)))))
 
 (defn normalize-url
   [^String url]

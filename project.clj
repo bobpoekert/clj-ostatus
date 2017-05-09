@@ -1,4 +1,4 @@
-(defproject ostatus "0.1"
+(defproject ostatus "0.2"
   :description "An ostatus client"
   :url "https://github.com/bobpoekert/clj-ostatus"
   :license {:name "MIT License"}
