@@ -183,7 +183,7 @@
 
 (defn read-doc
   [doc]
-  (xml->doc doc {:namespace-aware true}))
+  (xml->doc doc {:namespace-aware true :disallow-doctype-decl false}))
 
 (defn attr-getter
   [node]

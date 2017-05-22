@@ -91,10 +91,10 @@
   [inp]
   (with-masto-ns
     (let [inp (read-doc inp)
-          feed-node ($x:node? (xp "./atom:feed") inp)]
+          feed-node ($x:node? (xp "/atom:feed") inp)]
       (if feed-node
         (parse-feed feed-node)
-        (map parse-entry ($x:node* (xp "./atom:entry") inp))))))
+        (map parse-entry ($x:node* (xp "/atom:entry") inp))))))
 
 (defn author-tree
   [account]

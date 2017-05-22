@@ -54,5 +54,7 @@
           agent-index (reduce merge (for [a agents id (:ids a)] {id a}))
           target-agent (argmax #(+ (count (:followers %)) (count (:following %))) agents)]
       (-> target-agent
+        (assoc :follower-count (count (:followers target-agent)))
+        (assoc :following-count (count (:following target-agent)))
         (assoc :following (map #(get agent-index %) (:following target-agent)))
         (assoc :followers (map #(get agent-index %) (:followers target-agent)))))))

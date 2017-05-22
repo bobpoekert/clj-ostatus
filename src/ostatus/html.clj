@@ -37,6 +37,7 @@
       :atom-url (ta "link[rel='alternate'][type='application/atom+xml']" "href")
       :rss-url (ta "link[rel='alternate'][type='application/rss+xml']" "href")
       :activitystream-url (ta "link[rel='alternate'][type='application/stream+json']" "href")
+      :html-url base-uri
       :bio (or 
             (ta "meta[name='description']" "content")
             (ta "meta[name='og:description']" "content"))
